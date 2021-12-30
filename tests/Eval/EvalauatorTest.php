@@ -29,7 +29,7 @@ class EvalauatorTest extends TestCase
                 $node
             )->lastChildByClass(
                 ReturnStatementElement::class
-            )->expression()->type()
+            )?->expression()->type()
         );
         self::assertTrue(require($path));
     }

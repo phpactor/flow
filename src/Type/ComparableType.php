@@ -32,7 +32,27 @@ abstract class ComparableType implements Type
         return !$this->value();
     }
 
-    public function add(ComparableType $rightType): ComparableType
+    public function add(ComparableType $rightType): static
+    {
+        return $this;
+    }
+
+    public function subtract(ComparableType $rightType): static
+    {
+        return $this;
+    }
+
+    public function divide(Type $type): static
+    {
+        return $this;
+    }
+
+    public function modulo(Type $type): static
+    {
+        return $this;
+    }
+
+    public function pow(Type $type): static
     {
         return $this;
     }
