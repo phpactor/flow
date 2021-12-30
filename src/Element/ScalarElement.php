@@ -3,19 +3,18 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
-use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
-use Phpactor\Flow\Type\UndefinedType;
 use Phpactor\TextDocument\ByteOffsetRange;
 
-class UnmanagedElement extends Element
+class ScalarElement extends Element
 {
-    public function __construct(
-        private string $nodeType,
-        private ByteOffsetRange $range,
-        private array $children
-    )
+    public function __construct(private ByteOffsetRange $range, private Type $type)
     {
+    }
+
+    public function type(): Type
+    {
+        return $this->type;
     }
 
     /**
@@ -23,7 +22,7 @@ class UnmanagedElement extends Element
      */
     public function children(): array
     {
-        return $this->children;
+        return [];
     }
 
     public function range(): ByteOffsetRange

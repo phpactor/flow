@@ -3,17 +3,13 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
-use Phpactor\Flow\Range;
-use Phpactor\Flow\Type;
-use Phpactor\Flow\Type\UndefinedType;
 use Phpactor\TextDocument\ByteOffsetRange;
 
-class UnmanagedElement extends Element
+final class SourceCodeElement extends Element
 {
     public function __construct(
-        private string $nodeType,
-        private ByteOffsetRange $range,
-        private array $children
+        public ByteOffsetRange $range,
+        public array $statements
     )
     {
     }
@@ -23,11 +19,15 @@ class UnmanagedElement extends Element
      */
     public function children(): array
     {
-        return $this->children;
+        return $this->statements;
+    }
+
+    public function parent(): ?Element
+    {
+        return null;
     }
 
     public function range(): ByteOffsetRange
     {
-        return $this->range;
     }
 }

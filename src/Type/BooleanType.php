@@ -2,8 +2,16 @@
 
 namespace Phpactor\Flow\Type;
 
-final class BooleanType
+use Phpactor\Flow\Type;
+
+final class BooleanType extends ComparableType
 {
-    public function __construct(public bool $value) {
+    public function __construct(private ?bool $value) 
+    {
+    }
+
+    public function value(): mixed
+    {
+        return $this->value;
     }
 }
