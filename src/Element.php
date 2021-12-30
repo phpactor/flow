@@ -2,6 +2,7 @@
 
 namespace Phpactor\Flow;
 
+use Phpactor\Flow\Type\InvalidType;
 use Phpactor\TextDocument\ByteOffsetRange;
 
 abstract class Element

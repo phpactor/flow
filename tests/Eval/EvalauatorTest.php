@@ -29,12 +29,13 @@ class EvalauatorTest extends TestCase
                 ReturnStatementElement::class
             )->expression()->type()
         );
+        self::assertTrue(require($path));
     }
 
     public function provideEval(): Generator
     {
         foreach (glob(__DIR__ . '/*/*.phpt') as $path) {
-            yield basename($path) => [
+            yield dirname($path) .'/'. basename($path) => [
                 $path,
             ];
         }
