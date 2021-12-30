@@ -7,6 +7,7 @@ use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Microsoft\PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
 use Phpactor\Flow\Element\ReturnStatementElement;
+use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
 
@@ -24,6 +25,7 @@ class EvalauatorTest extends TestCase
         self::assertEquals(
             new BooleanType(true),
             $interpreter->interpret(
+                Frame::new(),
                 $node
             )->lastChildByClass(
                 ReturnStatementElement::class

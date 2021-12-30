@@ -7,6 +7,7 @@ use Microsoft\PhpParser\Node\Expression\BinaryExpression;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\BinaryExpressionElement;
+use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
 use Phpactor\Flow\Type\ComparableType;
@@ -15,11 +16,11 @@ use Phpactor\Flow\Util\NodeBridge;
 
 class BinaryExpressionResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof BinaryExpression);
-        $left = $interpreter->interpret($node->leftOperand);
-        $right = $interpreter->interpret($node->rightOperand);
+        $left = $interpreter->interpret($frame, $node->leftOperand);
+        $right = $interpreter->interpret($frame, $node->rightOperand);
 
         $value = match ($node->operator->getText($node->getFileContents())) {
             '===' => $left->type()->strictEquals($right->type()),

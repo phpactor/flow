@@ -7,6 +7,7 @@ use Microsoft\PhpParser\Node\ReservedWord;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\ScalarElement;
+use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\BooleanType;
@@ -15,7 +16,7 @@ use Phpactor\Flow\Util\NodeBridge;
 
 class ReservedWordResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof ReservedWord);
 
