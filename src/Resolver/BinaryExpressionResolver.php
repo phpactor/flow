@@ -29,8 +29,8 @@ class BinaryExpressionResolver implements ElementResolver
         assert($rightType instanceof ComparableType);
 
         $type = match ($node->operator->getText($node->getFileContents())) {
-            '===' => new BooleanType($leftType->strictEquals($rightType)),
-            '!==' => new BooleanType($leftType->strictUnequals($rightType)),
+            '===' => $leftType->strictEquals($rightType),
+            '!==' => $leftType->strictUnequals($rightType),
             '+' => $leftType->add($rightType),
             '-' => $leftType->subtract($rightType),
             '**' => $leftType->pow($rightType),

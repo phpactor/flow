@@ -8,22 +8,22 @@ abstract class ComparableType implements Type
 {
     abstract public function value(): mixed;
 
-    public function strictEquals(Type $type): bool
+    public function strictEquals(Type $type): BooleanType
     {
         if (!$type instanceof ComparableType) {
             return false;
         }
 
-        return $type->value() === $this->value();
+        return new BooleanType($type->value() === $this->value());
     }
 
-    public function strictUnequals(Type $type): bool
+    public function strictUnequals(Type $type): BooleanType
     {
         if (!$type instanceof ComparableType) {
             return false;
         }
 
-        return $type->value() !== $this->value();
+        return new BooleanType($type->value() !== $this->value());
     }
 
 
