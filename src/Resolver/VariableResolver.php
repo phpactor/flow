@@ -18,11 +18,13 @@ use SebastianBergmann\Type\UnknownType;
 
 class VariableResolver implements ElementResolver
 {
+    private const UNKNOWN_VARNAME = '__unknown__';
+
     public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof Variable);
 
-        $name = '__unknown__';
+        $name = self::UNKNOWN_VARNAME;
         if ($node->name instanceof Token) {
             $name = $node->name->getText($node->getFileContents());
         }

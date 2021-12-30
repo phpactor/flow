@@ -11,6 +11,7 @@ use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
 use Phpactor\Flow\Type\ComparableType;
+use Phpactor\Flow\Type\IntegerType;
 use Phpactor\Flow\Type\UndefinedType;
 use Phpactor\Flow\Util\NodeBridge;
 
@@ -21,18 +22,23 @@ class BinaryExpressionResolver implements ElementResolver
         assert($node instanceof BinaryExpression);
         $left = $interpreter->interpret($frame, $node->leftOperand);
         $right = $interpreter->interpret($frame, $node->rightOperand);
+        $leftType = $left->type();
+        $rightType = $right->type();
+        assert($leftType instanceof ComparableType);
+        assert($rightType instanceof ComparableType);
 
-        $value = match ($node->operator->getText($node->getFileContents())) {
-            '===' => $left->type()->strictEquals($right->type()),
-            '!==' => $left->type()->strictUnequals($right->type()),
-            default => new UndefinedType(),
+        $type = match ($node->operator->getText($node->getFileContents())) {
+            '===' => new BooleanType($leftType->strictEquals($rightType)),
+            '!==' => new BooleanType($leftType->strictUnequals($rightType)),
+            '+' => $leftType->add($rightType),
+            default => null,
         };
 
         return new BinaryExpressionElement(
             NodeBridge::rangeFromNode($node),
             $left,
             $right,
-            new BooleanType($value),
+            $type,
         );
     }
 }

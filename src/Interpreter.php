@@ -7,6 +7,7 @@ use Microsoft\PhpParser\Node\Expression\AssignmentExpression;
 use Microsoft\PhpParser\Node\Expression\BinaryExpression;
 use Microsoft\PhpParser\Node\Expression\UnaryOpExpression;
 use Microsoft\PhpParser\Node\Expression\Variable;
+use Microsoft\PhpParser\Node\NumericLiteral;
 use Microsoft\PhpParser\Node\ReservedWord;
 use Microsoft\PhpParser\Node\SourceFileNode;
 use Microsoft\PhpParser\Node\Statement\ExpressionStatement;
@@ -17,6 +18,7 @@ use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
 use Phpactor\Flow\Resolver\BinaryExpressionResolver;
 use Phpactor\Flow\Resolver\ExpressionStatementResolver;
 use Phpactor\Flow\Resolver\InlineHtmlResolver;
+use Phpactor\Flow\Resolver\NumericLiteralResolver;
 use Phpactor\Flow\Resolver\ReservedWordResolver;
 use Phpactor\Flow\Resolver\ReturnStatementResolver;
 use Phpactor\Flow\Resolver\SourceCodeResolver;
@@ -44,6 +46,7 @@ class Interpreter
             ExpressionStatement::class => new ExpressionStatementResolver(),
             AssignmentExpression::class => new AssignmentExpressionResolver(),
             Variable::class => new VariableResolver(),
+            NumericLiteral::class => new NumericLiteralResolver(),
         ]);
     }
 

@@ -31,4 +31,9 @@ abstract class ComparableType implements Type
     {
         return !$this->value();
     }
+
+    public function add(ComparableType $rightType): ComparableType
+    {
+        return $this;
+    }
 }
