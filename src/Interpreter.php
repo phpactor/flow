@@ -7,10 +7,12 @@ use Microsoft\PhpParser\Node\Expression\BinaryExpression;
 use Microsoft\PhpParser\Node\Expression\UnaryOpExpression;
 use Microsoft\PhpParser\Node\ReservedWord;
 use Microsoft\PhpParser\Node\SourceFileNode;
+use Microsoft\PhpParser\Node\Statement\ExpressionStatement;
 use Microsoft\PhpParser\Node\Statement\InlineHtml;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Resolver\BinaryExpressionResolver;
+use Phpactor\Flow\Resolver\ExpressionStatementResolver;
 use Phpactor\Flow\Resolver\InlineHtmlResolver;
 use Phpactor\Flow\Resolver\ReservedWordResolver;
 use Phpactor\Flow\Resolver\ReturnStatementResolver;
@@ -35,6 +37,7 @@ class Interpreter
             ReservedWord::class => new ReservedWordResolver(),
             UnaryOpExpression::class => new UnaryOpResolver(),
             InlineHtml::class => new InlineHtmlResolver(),
+            ExpressionStatement::class => new ExpressionStatementResolver(),
         ]);
     }
 
