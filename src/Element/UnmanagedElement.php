@@ -6,13 +6,12 @@ use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\UndefinedType;
-use Phpactor\TextDocument\ByteOffsetRange;
 
 class UnmanagedElement extends Element
 {
     public function __construct(
         private string $nodeType,
-        private ByteOffsetRange $range,
+        private Range $range,
         private array $children
     )
     {
@@ -26,7 +25,7 @@ class UnmanagedElement extends Element
         return $this->children;
     }
 
-    public function range(): ByteOffsetRange
+    public function range(): Range
     {
         return $this->range;
     }

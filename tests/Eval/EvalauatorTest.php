@@ -22,16 +22,29 @@ class EvalauatorTest extends TestCase
         $interpreter = Interpreter::create();
         $parser = new Parser();
         $node = $parser->parseSourceFile($code);
+        $interpreted = $interpreter->interpret(
+            Frame::new(),
+            $node
+        );
+
         self::assertEquals(
             new BooleanType(true),
-            $interpreter->interpret(
-                Frame::new(),
-                $node
-            )->lastChildByClass(
+            $interpreted->lastChildByClass(
                 ReturnStatementElement::class
-            )?->expression()->type()
+            )?->expression()->type(),
+            'Analysed code returns true',
         );
-        self::assertTrue(require($path));
+
+        self::assertTrue(
+            require($path),
+            'PHP code actually returns true'
+        );
+
+        self::assertEquals(
+            $code,
+            $interpreted->toString($code),
+            'Converts back to original source'
+        );
     }
 
     public function provideEval(): Generator

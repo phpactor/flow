@@ -3,12 +3,12 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
+use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
-use Phpactor\TextDocument\ByteOffsetRange;
 
 class ScalarElement extends Element
 {
-    public function __construct(private ByteOffsetRange $range, private Type $type)
+    public function __construct(private Range $range, private Type $type)
     {
     }
 
@@ -25,7 +25,7 @@ class ScalarElement extends Element
         return [];
     }
 
-    public function range(): ByteOffsetRange
+    public function range(): Range
     {
         return $this->range;
     }

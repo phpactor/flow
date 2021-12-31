@@ -3,18 +3,23 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
-use Phpactor\TextDocument\ByteOffsetRange;
+use Phpactor\Flow\Range;
 
 class AssignmentExpressionElement extends Element
 {
+    public function __construct(private Range $range)
+    {
+    }
     /**
      * {@inheritDoc}
      */
     public function children(): array
     {
+        return [];
     }
 
-    public function range(): ByteOffsetRange
+    public function range(): Range
     {
+        return $this->range;
     }
 }

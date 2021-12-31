@@ -3,11 +3,11 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
-use Phpactor\TextDocument\ByteOffsetRange;
+use Phpactor\Flow\Range;
 
 class ExpressionStatementElement extends Element
 {
-    public function __construct(private ByteOffsetRange $range, private Element $expression)
+    public function __construct(private Range $range, private Element $expression)
     {
     }
     /**
@@ -20,7 +20,7 @@ class ExpressionStatementElement extends Element
         ];
     }
 
-    public function range(): ByteOffsetRange
+    public function range(): Range
     {
         return $this->range;
     }

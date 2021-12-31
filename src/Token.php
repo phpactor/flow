@@ -1,13 +1,11 @@
 <?php
 
-namespace Phpactor\Flow\Element;
+namespace Phpactor\Flow;
 
-use Phpactor\Flow\Element;
-use Phpactor\Flow\Range;
- 
-class InlineHtmlElement extends Element
+class Token extends Element
 {
-    public function __construct(private Range $range) {
+    public function __construct(private Range $range)
+    {
     }
 
     /**

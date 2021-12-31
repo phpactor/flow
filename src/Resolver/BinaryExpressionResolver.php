@@ -49,6 +49,7 @@ class BinaryExpressionResolver implements ElementResolver
         return new BinaryExpressionElement(
             NodeBridge::rangeFromNode($node),
             $left,
+            NodeBridge::token($node->operator),
             $right,
             $type,
         );

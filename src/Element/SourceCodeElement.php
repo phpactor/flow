@@ -3,12 +3,12 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
-use Phpactor\TextDocument\ByteOffsetRange;
+use Phpactor\Flow\Range;
 
 final class SourceCodeElement extends Element
 {
     public function __construct(
-        public ByteOffsetRange $range,
+        public Range $range,
         public array $statements
     )
     {
@@ -27,7 +27,8 @@ final class SourceCodeElement extends Element
         return null;
     }
 
-    public function range(): ByteOffsetRange
+    public function range(): Range
     {
+        return $this->range;
     }
 }

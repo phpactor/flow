@@ -3,14 +3,16 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
+use Phpactor\Flow\Range;
+use Phpactor\Flow\Token;
 use Phpactor\Flow\Type;
-use Phpactor\TextDocument\ByteOffsetRange;
 
 class BinaryExpressionElement extends Element
 {
     public function __construct(
-        private ByteOffsetRange $range,
+        private Range $range,
         private Element $left,
+        private Token $operator,
         private Element $right,
         private Type $type,
     )
@@ -34,11 +36,12 @@ class BinaryExpressionElement extends Element
     {
         return [
             $this->left,
+            $this->operator,
             $this->right,
         ];
     }
 
-    public function range(): ByteOffsetRange
+    public function range(): Range
     {
         return $this->range;
     }

@@ -26,13 +26,14 @@ use Phpactor\Flow\Resolver\ReturnStatementResolver;
 use Phpactor\Flow\Resolver\SourceCodeResolver;
 use Phpactor\Flow\Resolver\UnaryOpResolver;
 use Phpactor\Flow\Resolver\VariableResolver;
+use Phpactor\Flow\Util\DebugHelper;
 use Phpactor\Flow\Util\NodeBridge;
 use Phpactor\TextDocument\ByteOffsetRange;
 use RuntimeException;
 
 class Interpreter
 {
-    public function __construct(private readonly array $resolvers = [], private bool $development = false)
+    public function __construct(private readonly array $resolvers = [])
     {
     }
 
@@ -53,31 +54,13 @@ class Interpreter
         ]);
     }
 
-    /**
-     * @template T
-     * @param class-string<T> $class
-     * @return T
-     */
-    public function interpretClass(Node $node, string $class): Element
-    {
-        $element = $this->interpret($node);
-        if (!$element instanceof $class) {
-            throw new RuntimeException(sprintf(
-                'Expected element class of type "%s", but got "%s"',
-                $class, get_class($element)
-            ));
-        }
-
-        return $element;
-    }
-
     public function interpret(Frame $frame, Node $node): Element
     {
         if (isset($this->resolvers[$node::class])) {
             return $this->resolvers[$node::class]->resolve($this, $frame, $node);
         }
 
-        if (!$this->development) {
+        if (DebugHelper::isDebug()) {
             throw new RuntimeException(sprintf(
                 'Do not know how to handle node of type "%s"',
                 get_class($node)

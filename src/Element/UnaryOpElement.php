@@ -3,21 +3,18 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
+use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
 use Phpactor\TextDocument\ByteOffset;
-use Phpactor\TextDocument\ByteOffsetRange;
 
 class UnaryOpElement extends Element
 {
-    private ByteOffsetRange $range;
-    private Element $operand;
-    private Type $type;
-
-    public function __construct(ByteOffsetRange $range, Element $operand, Type $type)
+    public function __construct(
+        private Range $range,
+        private Element $operand,
+        private Type $type
+    )
     {
-        $this->range = $range;
-        $this->operand = $operand;
-        $this->type = $type;
     }
 
     public function type(): Type
@@ -35,8 +32,8 @@ class UnaryOpElement extends Element
         ];
     }
 
-    public function range(): ByteOffsetRange
+    public function range(): Range
     {
-        return $this->rannge;
+        return $this->range;
     }
 }

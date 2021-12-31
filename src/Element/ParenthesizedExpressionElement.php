@@ -3,12 +3,12 @@
 namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
+use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
-use Phpactor\TextDocument\ByteOffsetRange;
 
 class ParenthesizedExpressionElement extends Element
 {
-    public function __construct(private ByteOffsetRange $ragne, private Element $expression, private Type $type)
+    public function __construct(private Range $range, private Element $expression, private Type $type)
     {
     }
 
@@ -22,7 +22,7 @@ class ParenthesizedExpressionElement extends Element
         ];
     }
 
-    public function range(): ByteOffsetRange
+    public function range(): Range
     {
         return $this->range;
     }
