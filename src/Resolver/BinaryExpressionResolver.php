@@ -14,7 +14,10 @@ use Phpactor\Flow\Type\ComparableType;
 use Phpactor\Flow\Type\IntegerType;
 use Phpactor\Flow\Type\InvalidType;
 use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Util\DebugHelper;
 use Phpactor\Flow\Util\NodeBridge;
+use RuntimeException;
+use UnhandledMatchError;
 
 class BinaryExpressionResolver implements ElementResolver
 {
@@ -28,15 +31,19 @@ class BinaryExpressionResolver implements ElementResolver
         assert($leftType instanceof ComparableType);
         assert($rightType instanceof ComparableType);
 
-        $type = match ($node->operator->getText($node->getFileContents())) {
+        $condition = $node->operator->getText($node->getFileContents());
+        $type = match ($condition) {
             '===' => $leftType->strictEquals($rightType),
             '!==' => $leftType->strictUnequals($rightType),
             '+' => $leftType->add($rightType),
             '-' => $leftType->subtract($rightType),
+            '*' => $leftType->multiply($rightType),
             '**' => $leftType->pow($rightType),
             '%' => $leftType->modulo($rightType),
             '/' => $leftType->divide($rightType),
-            default => new InvalidType(),
+            default => DebugHelper::isDebug() ? throw new RuntimeException(sprintf(
+                'Unknown operator "%s"', $condition
+            )) : new InvalidType()
         };
 
         return new BinaryExpressionElement(

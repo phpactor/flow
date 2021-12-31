@@ -50,4 +50,13 @@ abstract class NumericType extends ComparableType
 
         return new static($this->value() ** $type->value());
     }
+
+    public function multiply(ComparableType $type): static
+    {
+        if (!$type instanceof NumericType) {
+            return $this;
+        }
+
+        return new static($this->value() * $type->value());
+    }
 }

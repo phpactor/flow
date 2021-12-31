@@ -3,7 +3,9 @@
 namespace Phpactor\Flow;
 
 use Phpactor\Flow\Type\InvalidType;
+use Phpactor\Flow\Util\DebugHelper;
 use Phpactor\TextDocument\ByteOffsetRange;
+use RuntimeException;
 
 abstract class Element
 {
@@ -33,6 +35,12 @@ abstract class Element
 
     public function type(): Type
     {
+        if (DebugHelper::isDebug()) {
+            throw new RuntimeException(sprintf(
+                'Type not implemented: "%s"', get_class($this)
+            ));
+        }
+
         return new InvalidType();
     }
 }
