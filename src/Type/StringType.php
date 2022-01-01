@@ -2,7 +2,9 @@
 
 namespace Phpactor\Flow\Type;
 
-final class StringType extends ComparableType
+use Phpactor\Flow\Type;
+
+final class StringType extends Type
 {
     public function __construct(private ?string $value) {
     }

@@ -29,11 +29,6 @@ class BinaryExpressionResolver implements ElementResolver
         $leftType = $left->type();
         $rightType = $right->type();
 
-        // TODO: All types should have all methods, merge ComparableType into
-        //       abstract Type class
-        assert($leftType instanceof ComparableType);
-        assert($rightType instanceof ComparableType);
-
         $condition = $node->operator->getText($node->getFileContents());
         $type = match ($condition) {
             '===' => $leftType->strictEquals($rightType),

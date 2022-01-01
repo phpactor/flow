@@ -2,6 +2,8 @@
 
 namespace Phpactor\Flow\Type;
 
+use Phpactor\Flow\Type;
+
 final class FloatType extends NumericType
 {
     public function __construct(private ?float $value) {

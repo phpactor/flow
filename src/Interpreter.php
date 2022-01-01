@@ -17,8 +17,10 @@ use Microsoft\PhpParser\Node\SourceFileNode;
 use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
 use Microsoft\PhpParser\Node\Statement\ExpressionStatement;
 use Microsoft\PhpParser\Node\Statement\InlineHtml;
+use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Microsoft\PhpParser\Node\StringLiteral;
+use Phpactor\Flow\Element\NamespaceDefinitionElement;
 use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Evaluator\GetClassEvaluator;
 use Phpactor\Flow\Resolver\ArgumentExpressionResolver;
@@ -28,6 +30,7 @@ use Phpactor\Flow\Resolver\CallExpressionResolver;
 use Phpactor\Flow\Resolver\ClassDeclarationResolver;
 use Phpactor\Flow\Resolver\ExpressionStatementResolver;
 use Phpactor\Flow\Resolver\InlineHtmlResolver;
+use Phpactor\Flow\Resolver\NamespaceDefinitionResolver;
 use Phpactor\Flow\Resolver\NumericLiteralResolver;
 use Phpactor\Flow\Resolver\ObjectCreationExpressionResolver;
 use Phpactor\Flow\Resolver\ParenthesizedExpressionResolver;
@@ -71,6 +74,7 @@ class Interpreter
             ),
             StringLiteral::class => new StringLiteralResolver(),
             ArgumentExpression::class => new ArgumentExpressionResolver(),
+            NamespaceDefinition::class => new NamespaceDefinitionResolver(),
         ]);
     }
 

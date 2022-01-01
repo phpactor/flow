@@ -4,7 +4,7 @@ namespace Phpactor\Flow\Type;
 
 use Phpactor\Flow\Type;
 
-final class BooleanType extends ComparableType
+final class BooleanType extends Type
 {
     public function __construct(private ?bool $value) 
     {

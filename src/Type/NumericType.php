@@ -4,7 +4,7 @@ namespace Phpactor\Flow\Type;
 
 use Phpactor\Flow\Type;
 
-abstract class NumericType extends ComparableType
+abstract class NumericType extends Type
 {
     public function add(Type $type): static
     {
@@ -51,7 +51,7 @@ abstract class NumericType extends ComparableType
         return new static($this->value() ** $type->value());
     }
 
-    public function multiply(ComparableType $type): static
+    public function multiply(Type $type): static
     {
         if (!$type instanceof NumericType) {
             return $this;

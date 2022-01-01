@@ -2,10 +2,12 @@
 
 namespace Phpactor\Flow\Type;
 
+use Phpactor\Flow\Type;
+
 /**
  * Type for when Phpactor did not know how to resolve a type
  */
-class UnresolvedType extends ComparableType
+class UnresolvedType extends Type
 {
     private string $message;
 
