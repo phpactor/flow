@@ -23,6 +23,7 @@ use Microsoft\PhpParser\Node\StringLiteral;
 use Phpactor\Flow\Element\NamespaceDefinitionElement;
 use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Evaluator\GetClassEvaluator;
+use Phpactor\Flow\Reflection\ReflectionClass;
 use Phpactor\Flow\Resolver\ArgumentExpressionResolver;
 use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
 use Phpactor\Flow\Resolver\BinaryExpressionResolver;
@@ -42,6 +43,7 @@ use Phpactor\Flow\Resolver\UnaryOpResolver;
 use Phpactor\Flow\Resolver\VariableResolver;
 use Phpactor\Flow\Util\DebugHelper;
 use Phpactor\Flow\Util\NodeBridge;
+use Phpactor\Name\FullyQualifiedName;
 use Phpactor\TextDocument\ByteOffsetRange;
 use RuntimeException;
 
@@ -98,5 +100,10 @@ class Interpreter
                 return $this->interpret($frame, $node);
             }, iterator_to_array($node->getChildNodes()))
         );
+    }
+
+    public function reflectClass(FullyQualifiedName $fullyQualifiedName): ReflectionClass
+    {
+        return new ReflectionClass();
     }
 }
