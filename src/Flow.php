@@ -47,7 +47,7 @@ use Phpactor\Name\FullyQualifiedName;
 use Phpactor\TextDocument\ByteOffsetRange;
 use RuntimeException;
 
-class Interpreter
+class Flow
 {
     public function __construct(private readonly array $resolvers = [])
     {

@@ -11,7 +11,7 @@ use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\InlineHtmlElement;
 use Phpactor\Flow\Element\VariableElement;
 use Phpactor\Flow\Frame;
-use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\Flow;
 use Phpactor\Flow\Type\MixedType;
 use Phpactor\Flow\Util\NodeBridge;
 use SebastianBergmann\Type\UnknownType;
@@ -20,7 +20,7 @@ class VariableResolver implements ElementResolver
 {
     private const UNKNOWN_VARNAME = '__unknown__';
 
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Flow $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof Variable);
 

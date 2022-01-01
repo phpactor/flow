@@ -8,12 +8,12 @@ use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\InlineHtmlElement;
 use Phpactor\Flow\Frame;
-use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\Flow;
 use Phpactor\Flow\Util\NodeBridge;
 
 class InlineHtmlResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Flow $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof InlineHtml);
         return new InlineHtmlElement(NodeBridge::rangeFromNode($node));

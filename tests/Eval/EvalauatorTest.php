@@ -8,7 +8,7 @@ use Microsoft\PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
 use Phpactor\Flow\Element\ReturnStatementElement;
 use Phpactor\Flow\Frame;
-use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\Flow;
 use Phpactor\Flow\Type\BooleanType;
 
 class EvalauatorTest extends TestCase
@@ -19,7 +19,7 @@ class EvalauatorTest extends TestCase
     public function testEval(string $path): void
     {
         $code = file_get_contents($path);
-        $interpreter = Interpreter::create();
+        $interpreter = Flow::create();
         $parser = new Parser();
         $node = $parser->parseSourceFile($code);
         $interpreted = $interpreter->interpret(

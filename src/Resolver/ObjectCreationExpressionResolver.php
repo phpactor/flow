@@ -12,7 +12,7 @@ use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\ObjectCreationExpressionElement;
 use Phpactor\Flow\Frame;
-use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\Flow;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
@@ -23,7 +23,7 @@ use Phpactor\Name\FullyQualifiedName;
 
 class ObjectCreationExpressionResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Flow $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof ObjectCreationExpression);
 

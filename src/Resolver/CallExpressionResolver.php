@@ -15,7 +15,7 @@ use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\CallExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\FunctionEvaluator;
-use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\Flow;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
@@ -29,7 +29,7 @@ class CallExpressionResolver implements ElementResolver
     public function __construct(private FunctionEvaluator $evaluator)
     {
     }
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Flow $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof CallExpression);
 
@@ -53,7 +53,7 @@ class CallExpressionResolver implements ElementResolver
 
     private function resolveType(
         Frame $frame,
-        Interpreter $interpreter,
+        Flow $interpreter,
         QualifiedName|Expression $expression,
         Types $arguments
     ): Type
@@ -74,7 +74,7 @@ class CallExpressionResolver implements ElementResolver
         return $this->evaluator->evaluate($functionName, $arguments);
     }
 
-    private function resolveMemberAccess(Frame $frame, Interpreter $interpreter, MemberAccessExpression $expression, Types $arguments): Type
+    private function resolveMemberAccess(Frame $frame, Flow $interpreter, MemberAccessExpression $expression, Types $arguments): Type
     {
         $name = $expression?->memberName->getText($expression->getFileContents());
         $dereferencable = $interpreter->interpret($frame, $expression->dereferencableExpression);
