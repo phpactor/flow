@@ -3,8 +3,10 @@
 namespace Phpactor\Flow;
 
 use Microsoft\PhpParser\Node;
+use Microsoft\PhpParser\Node\Expression\ArgumentExpression;
 use Microsoft\PhpParser\Node\Expression\AssignmentExpression;
 use Microsoft\PhpParser\Node\Expression\BinaryExpression;
+use Microsoft\PhpParser\Node\Expression\CallExpression;
 use Microsoft\PhpParser\Node\Expression\ObjectCreationExpression;
 use Microsoft\PhpParser\Node\Expression\ParenthesizedExpression;
 use Microsoft\PhpParser\Node\Expression\UnaryOpExpression;
@@ -16,9 +18,12 @@ use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
 use Microsoft\PhpParser\Node\Statement\ExpressionStatement;
 use Microsoft\PhpParser\Node\Statement\InlineHtml;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
+use Microsoft\PhpParser\Node\StringLiteral;
 use Phpactor\Flow\Element\UnmanagedElement;
+use Phpactor\Flow\Resolver\ArgumentExpressionResolver;
 use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
 use Phpactor\Flow\Resolver\BinaryExpressionResolver;
+use Phpactor\Flow\Resolver\CallExpressionResolver;
 use Phpactor\Flow\Resolver\ClassDeclarationResolver;
 use Phpactor\Flow\Resolver\ExpressionStatementResolver;
 use Phpactor\Flow\Resolver\InlineHtmlResolver;
@@ -28,6 +33,7 @@ use Phpactor\Flow\Resolver\ParenthesizedExpressionResolver;
 use Phpactor\Flow\Resolver\ReservedWordResolver;
 use Phpactor\Flow\Resolver\ReturnStatementResolver;
 use Phpactor\Flow\Resolver\SourceCodeResolver;
+use Phpactor\Flow\Resolver\StringLiteralResolver;
 use Phpactor\Flow\Resolver\UnaryOpResolver;
 use Phpactor\Flow\Resolver\VariableResolver;
 use Phpactor\Flow\Util\DebugHelper;
@@ -57,6 +63,9 @@ class Interpreter
             ParenthesizedExpression::class => new ParenthesizedExpressionResolver(),
             ClassDeclaration::class => new ClassDeclarationResolver(),
             ObjectCreationExpression::Class => new ObjectCreationExpressionResolver(),
+            CallExpression::class => new CallExpressionResolver(),
+            StringLiteral::class => new StringLiteralResolver(),
+            ArgumentExpression::class => new ArgumentExpressionResolver(),
         ]);
     }
 
