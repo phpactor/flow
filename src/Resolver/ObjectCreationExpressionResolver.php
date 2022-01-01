@@ -16,7 +16,8 @@ use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
-use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Type\MixedType;
+use Phpactor\Flow\Type\UnresolvedType;
 use Phpactor\Flow\Util\NodeBridge;
 use Phpactor\Name\FullyQualifiedName;
 
@@ -39,9 +40,12 @@ class ObjectCreationExpressionResolver implements ElementResolver
         }
 
         if ($node instanceof Variable) {
-            return $frame->getVariable($node->getName()) ?? new UndefinedType();
+            return $frame->getVariable($node->getName()) ?? new MixedType();
         }
 
-        return new InvalidType();
+        return new UnresolvedType(sprintf(
+            'Could not resolve object creation expression with node type "%s"',
+            get_class($node)
+        ));
     }
 }

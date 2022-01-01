@@ -4,7 +4,7 @@ namespace Phpactor\Flow\Type;
 
 use Phpactor\Flow\Type;
 
-class UndefinedType extends ComparableType
+class MixedType extends ComparableType
 {
     public function value(): mixed
     {

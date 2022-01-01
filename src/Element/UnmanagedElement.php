@@ -5,7 +5,8 @@ namespace Phpactor\Flow\Element;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
-use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Type\MixedType;
+use Phpactor\Flow\Type\MixedType;
 
 class UnmanagedElement extends Element
 {

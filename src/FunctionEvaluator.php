@@ -3,7 +3,7 @@
 namespace Phpactor\Flow;
 
 use MongoDB\BSON\Undefined;
-use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Type\MixedType;
 use Phpactor\Name\FullyQualifiedName;
 
 class FunctionEvaluator
@@ -24,6 +24,6 @@ class FunctionEvaluator
             return $this->functionEvaluators[$name]->evaluate($arguments);
         }
 
-        return new UndefinedType();
+        return new MixedType();
     }
 }

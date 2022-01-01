@@ -28,6 +28,6 @@ class ArgumentExpressionElement extends Element
 
     public function type(): Type
     {
-        return $this->expression?->type() ?? new InvalidType();
+        return $this->expression?->type() ?? new InvalidType('No expression');
     }
 }

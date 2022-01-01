@@ -11,7 +11,7 @@ use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\BooleanType;
-use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Type\MixedType;
 use Phpactor\Flow\Util\NodeBridge;
 
 class ReservedWordResolver implements ElementResolver
@@ -33,6 +33,6 @@ class ReservedWordResolver implements ElementResolver
             return new BooleanType(false);
         }
 
-        return new UndefinedType();
+        return new MixedType();
     }
 }

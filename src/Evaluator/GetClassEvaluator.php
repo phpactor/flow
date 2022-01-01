@@ -17,7 +17,7 @@ class GetClassEvaluator
             return new StringType((string)$first->fqn());
         }
 
-        return new InvalidType();
+        return new InvalidType('Argument passed to get_class was not a class type');
     }
 }
 

@@ -10,7 +10,7 @@ use Phpactor\Flow\Element\UnaryOpElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
-use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Type\MixedType;
 use Phpactor\Flow\Util\NodeBridge;
 
 class UnaryOpResolver implements ElementResolver
@@ -21,7 +21,7 @@ class UnaryOpResolver implements ElementResolver
         $operand = $interpreter->interpret($frame, $node->operand);
         $value = match ($node->operator->getText($node->getFileContents())) {
             '!' => $operand->type()->negate(),
-            default => new UndefinedType()
+            default => new MixedType()
         };
 
         return new UnaryOpElement(NodeBridge::rangeFromNode($node), $operand, new BooleanType($value));

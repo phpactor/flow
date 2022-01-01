@@ -15,7 +15,7 @@ use Phpactor\Flow\Type\BooleanType;
 use Phpactor\Flow\Type\ComparableType;
 use Phpactor\Flow\Type\IntegerType;
 use Phpactor\Flow\Type\InvalidType;
-use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Type\MixedType;
 use Phpactor\Flow\Util\NodeBridge;
 
 class ParenthesizedExpressionResolver implements ElementResolver

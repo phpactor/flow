@@ -13,7 +13,7 @@ use Phpactor\Flow\Type\BooleanType;
 use Phpactor\Flow\Type\ComparableType;
 use Phpactor\Flow\Type\IntegerType;
 use Phpactor\Flow\Type\InvalidType;
-use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Type\MixedType;
 use Phpactor\Flow\Util\DebugHelper;
 use Phpactor\Flow\Util\NodeBridge;
 use RuntimeException;
@@ -46,7 +46,7 @@ class BinaryExpressionResolver implements ElementResolver
             '/' => $leftType->divide($rightType),
             default => DebugHelper::isDebug() ? throw new RuntimeException(sprintf(
                 'Unknown operator "%s"', $condition
-            )) : new InvalidType()
+            )) : new InvalidType(sprintf('Unknown operator "%s"', $condition))
         };
 
         return new BinaryExpressionElement(

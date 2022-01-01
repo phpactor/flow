@@ -12,7 +12,7 @@ use Phpactor\Flow\Element\InlineHtmlElement;
 use Phpactor\Flow\Element\VariableElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
-use Phpactor\Flow\Type\UndefinedType;
+use Phpactor\Flow\Type\MixedType;
 use Phpactor\Flow\Util\NodeBridge;
 use SebastianBergmann\Type\UnknownType;
 
@@ -32,7 +32,7 @@ class VariableResolver implements ElementResolver
         return new VariableElement(
             NodeBridge::rangeFromNode($node),
             $name,
-            $frame->getVariable($name)?->type() ?? new UndefinedType()
+            $frame->getVariable($name)?->type() ?? new MixedType()
         );
     }
 }
