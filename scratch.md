@@ -24,8 +24,7 @@ $ir = $interpret->interpret($code);
 $ir->findMethodCalls(Class::class, 'foobar');
 
 $node = $ir->nodeAtOffset(1234);
-$node->getStart();
-$node->getEnd();
+$node->getRange()->start(); // new LineCol(1, 1);
 if ($node instanceof TypedNode) {
     echo $node->getType(); // e.g. new StringLiteralType("foobar"), new StringType(), etc;
 }

@@ -20,6 +20,7 @@ use Microsoft\PhpParser\Node\Statement\InlineHtml;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Microsoft\PhpParser\Node\StringLiteral;
 use Phpactor\Flow\Element\UnmanagedElement;
+use Phpactor\Flow\Evaluator\GetClassEvaluator;
 use Phpactor\Flow\Resolver\ArgumentExpressionResolver;
 use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
 use Phpactor\Flow\Resolver\BinaryExpressionResolver;
@@ -63,7 +64,11 @@ class Interpreter
             ParenthesizedExpression::class => new ParenthesizedExpressionResolver(),
             ClassDeclaration::class => new ClassDeclarationResolver(),
             ObjectCreationExpression::Class => new ObjectCreationExpressionResolver(),
-            CallExpression::class => new CallExpressionResolver(),
+            CallExpression::class => new CallExpressionResolver(
+                new FunctionEvaluator([
+                    'get_class' => new GetClassEvaluator(),
+                ])
+            ),
             StringLiteral::class => new StringLiteralResolver(),
             ArgumentExpression::class => new ArgumentExpressionResolver(),
         ]);

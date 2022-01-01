@@ -18,6 +18,7 @@ Example
 -------
 
 ```
+// ???
 $class = $flow->locateDefinition(FoobarClass::class);
 $methods = $class->findChildNodes(MethodDeclarationElement::class);
 $methods->first()->type(); // return type

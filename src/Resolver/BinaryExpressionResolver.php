@@ -28,6 +28,9 @@ class BinaryExpressionResolver implements ElementResolver
         $right = $interpreter->interpret($frame, $node->rightOperand);
         $leftType = $left->type();
         $rightType = $right->type();
+
+        // TODO: All types should have all methods, merge ComparableType into
+        //       abstract Type class
         assert($leftType instanceof ComparableType);
         assert($rightType instanceof ComparableType);
 
