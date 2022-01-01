@@ -5,21 +5,25 @@ namespace Phpactor\Flow;
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\Expression\AssignmentExpression;
 use Microsoft\PhpParser\Node\Expression\BinaryExpression;
+use Microsoft\PhpParser\Node\Expression\ObjectCreationExpression;
 use Microsoft\PhpParser\Node\Expression\ParenthesizedExpression;
 use Microsoft\PhpParser\Node\Expression\UnaryOpExpression;
 use Microsoft\PhpParser\Node\Expression\Variable;
 use Microsoft\PhpParser\Node\NumericLiteral;
 use Microsoft\PhpParser\Node\ReservedWord;
 use Microsoft\PhpParser\Node\SourceFileNode;
+use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
 use Microsoft\PhpParser\Node\Statement\ExpressionStatement;
 use Microsoft\PhpParser\Node\Statement\InlineHtml;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
 use Phpactor\Flow\Resolver\BinaryExpressionResolver;
+use Phpactor\Flow\Resolver\ClassDeclarationResolver;
 use Phpactor\Flow\Resolver\ExpressionStatementResolver;
 use Phpactor\Flow\Resolver\InlineHtmlResolver;
 use Phpactor\Flow\Resolver\NumericLiteralResolver;
+use Phpactor\Flow\Resolver\ObjectCreationExpressionResolver;
 use Phpactor\Flow\Resolver\ParenthesizedExpressionResolver;
 use Phpactor\Flow\Resolver\ReservedWordResolver;
 use Phpactor\Flow\Resolver\ReturnStatementResolver;
@@ -51,6 +55,8 @@ class Interpreter
             Variable::class => new VariableResolver(),
             NumericLiteral::class => new NumericLiteralResolver(),
             ParenthesizedExpression::class => new ParenthesizedExpressionResolver(),
+            ClassDeclaration::class => new ClassDeclarationResolver(),
+            ObjectCreationExpression::Class => new ObjectCreationExpressionResolver(),
         ]);
     }
 
