@@ -89,7 +89,15 @@ class CallExpressionResolver implements ElementResolver
             ));
         }
 
-        $class = $interpreter->reflectClass($dereferenableType->fqn());
+        $class = $interpreter->reflectClass($dereferenableType->fqn(), $arguments);
+
+        if (null === $class) {
+            return new InvalidType(sprintf(
+                'Could not locate class "%s"',
+                $dereferenableType->fqn()
+            ));
+        }
+
         $member = $class->methods()->get((string)$name);
 
         if (null === $member) {

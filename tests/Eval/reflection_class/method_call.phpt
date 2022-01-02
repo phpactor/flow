@@ -1,8 +1,11 @@
 <?php
 
+class Foo {}
 class Foobar {
-    public function baz(): Return
+    public function baz(): Foo {
+        return new Foo();
+    }
 }
 
-return get_class((new Foobar())->baz()) === 'Return';
+return get_class((new Foobar())->baz()) === 'Foo';
 

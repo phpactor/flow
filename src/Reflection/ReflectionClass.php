@@ -18,7 +18,7 @@ final class ReflectionClass
 
     public function methods(): MethodCollection
     {
-        return MethodCollection::fromElement($element, $this->arguments);
+        return MethodCollection::fromElement($this->element, $this->arguments);
     }
 
     public function name(): FullyQualifiedName

@@ -9,7 +9,10 @@ use Phpactor\Flow\Range;
 
 class ClassDeclarationElement extends Element
 {
-    public function __construct(private Range $range)
+    /**
+     * @param Element[] $members
+     */
+    public function __construct(private Range $range, private array $members)
     {
     }
     /**
@@ -17,7 +20,7 @@ class ClassDeclarationElement extends Element
      */
     public function children(): array
     {
-        return [];
+        return $this->members;
     }
 
     public function range(): Range

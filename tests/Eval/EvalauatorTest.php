@@ -11,6 +11,7 @@ use Phpactor\Flow\FlowBuilder;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
+use Symfony\Component\Process\Process;
 
 class EvalauatorTest extends TestCase
 {
@@ -20,7 +21,7 @@ class EvalauatorTest extends TestCase
     public function testEval(string $path): void
     {
         $code = (string)file_get_contents($path);
-        $flow = FlowBuilder::create()->build();
+        $flow = FlowBuilder::create()->withSource($code)->build();
         $interpreted = $flow->represent($code);
 
         self::assertEquals(
@@ -31,10 +32,10 @@ class EvalauatorTest extends TestCase
             'Analysed code returns true',
         );
 
-        self::assertTrue(
-            require($path),
-            'PHP code actually returns true'
-        );
+        $process = new Process([
+            PHP_BINARY,
+        ], null, null, $code);
+        $process->mustRun();
 
         self::assertEquals(
             $code,

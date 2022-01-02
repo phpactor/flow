@@ -19,14 +19,22 @@ final class AstLocator
     public function locate(FullyQualifiedName $name, ?string $type = null): ?Node
     {
         $code = $this->locator->locate($name);
+
+        if (null === $code) {
+            return null;
+        }
+
         $node = $this->parser->parseSourceFile($code);
 
         foreach ($node->getChildNodes() as $child) {
-            if ($child instanceof NamespacedNameInterface) {
-                dump($child->getNamespacedName());
+            if (!$child instanceof NamespacedNameInterface) {
+                continue;
+            }
+            if ((string)$child->getNamespacedName() === $name->__toString()) {
+                return $child;
             }
         }
 
-        return $node;
+        return null;
     }
 }

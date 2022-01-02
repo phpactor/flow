@@ -8,13 +8,13 @@ use Phpactor\Flow\Type;
 
 class MethodDeclarationElement extends Element
 {
-    public function __construct(private Range $range)
+    public function __construct(private Range $range, private string $name, private Type $type)
     {
     }
 
     public function name(): string
     {
-        return '';
+        return $this->name;
     }
 
     /**
@@ -28,5 +28,10 @@ class MethodDeclarationElement extends Element
     public function range(): Range
     {
         return $this->range;
+    }
+
+    public function type(): Type
+    {
+        return $this->type;
     }
 }

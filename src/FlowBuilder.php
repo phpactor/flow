@@ -10,6 +10,7 @@ use Microsoft\PhpParser\Node\Expression\ObjectCreationExpression;
 use Microsoft\PhpParser\Node\Expression\ParenthesizedExpression;
 use Microsoft\PhpParser\Node\Expression\UnaryOpExpression;
 use Microsoft\PhpParser\Node\Expression\Variable;
+use Microsoft\PhpParser\Node\MethodDeclaration;
 use Microsoft\PhpParser\Node\NumericLiteral;
 use Microsoft\PhpParser\Node\ReservedWord;
 use Microsoft\PhpParser\Node\SourceFileNode;
@@ -28,6 +29,7 @@ use Phpactor\Flow\Resolver\CallExpressionResolver;
 use Phpactor\Flow\Resolver\ClassDeclarationResolver;
 use Phpactor\Flow\Resolver\ExpressionStatementResolver;
 use Phpactor\Flow\Resolver\InlineHtmlResolver;
+use Phpactor\Flow\Resolver\MethodDeclarationResolver;
 use Phpactor\Flow\Resolver\NamespaceDefinitionResolver;
 use Phpactor\Flow\Resolver\NumericLiteralResolver;
 use Phpactor\Flow\Resolver\ObjectCreationExpressionResolver;
@@ -38,17 +40,30 @@ use Phpactor\Flow\Resolver\SourceCodeResolver;
 use Phpactor\Flow\Resolver\StringLiteralResolver;
 use Phpactor\Flow\Resolver\UnaryOpResolver;
 use Phpactor\Flow\Resolver\VariableResolver;
+use Phpactor\Flow\SourceLocator\ChainLocator;
 use Phpactor\Flow\SourceLocator\NullLocator;
+use Phpactor\Flow\SourceLocator\StringLocator;
 
 final class FlowBuilder
 {
-    public function __construct(private Parser $parser, private SourceLocator $locator)
+    /**
+     * @var SourceLocator[]
+     */
+    private $locators = [];
+
+    public function __construct(private Parser $parser)
     {
     }
 
     public static function create(): FlowBuilder
     {
-        return new self(new Parser(), new NullLocator());
+        return new self(new Parser());
+    }
+
+    public function withSource(string $source): self
+    {
+        $this->locators[] = StringLocator::fromString($source);
+        return $this;
     }
 
     public function build(): Flow
@@ -85,12 +100,18 @@ final class FlowBuilder
                 StringLiteral::class => new StringLiteralResolver(),
                 ArgumentExpression::class => new ArgumentExpressionResolver(),
                 NamespaceDefinition::class => new NamespaceDefinitionResolver(),
+                MethodDeclaration::class => new MethodDeclarationResolver(),
             ]
         );
     }
 
     private function createNodeLocator(): AstLocator
     {
-        return new AstLocator($this->parser, $this->locator);
+        return new AstLocator($this->parser, $this->createLocator());
+    }
+
+    private function createLocator(): SourceLocator
+    {
+        return new ChainLocator($this->locators);
     }
 }
