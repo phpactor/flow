@@ -9,10 +9,7 @@ use Phpactor\Flow\Type;
  */
 class UnresolvedType extends Type
 {
-    private string $message;
-
-    public function __construct(string $message)
+    public function __construct(public readonly string $message)
     {
-        $this->message = $message;
     }
 }

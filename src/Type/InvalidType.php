@@ -10,6 +10,6 @@ use Phpactor\Flow\Type;
  */
 class InvalidType extends Type
 {
-    public function __construct(private string $message) {
+    public function __construct(public readonly string $message) {
     }
 }

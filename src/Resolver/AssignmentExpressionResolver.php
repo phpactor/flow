@@ -23,9 +23,11 @@ class AssignmentExpressionResolver implements ElementResolver
 
         if ($left instanceof VariableElement) {
             $left = $left->withType($right->type());
+            $frame->setVariable($left);
         }
-        $frame->setVariable($left);
 
-        return new AssignmentExpressionElement(NodeBridge::rangeFromNode($node), $left, $right);
+        return new AssignmentExpressionElement(
+            NodeBridge::rangeFromNode($node)
+        );
     }
 }

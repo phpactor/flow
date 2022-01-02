@@ -4,8 +4,18 @@ namespace Phpactor\Flow\Type;
 
 use Phpactor\Flow\Type;
 
+/**
+ * @template T of number
+ */
 abstract class NumericType extends Type
 {
+    /**
+     * @param T $value
+     */
+    final public function __construct(protected null|int|float $value)
+    {
+    }
+
     public function add(Type $type): static
     {
         if (!$type instanceof NumericType) {
@@ -58,5 +68,10 @@ abstract class NumericType extends Type
         }
 
         return new static($this->value() * $type->value());
+    }
+
+    public function value(): mixed
+    {
+        return $this->value;
     }
 }

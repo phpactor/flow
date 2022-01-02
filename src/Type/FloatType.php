@@ -4,13 +4,9 @@ namespace Phpactor\Flow\Type;
 
 use Phpactor\Flow\Type;
 
+/**
+ * @extends NumericType<float>
+ */
 final class FloatType extends NumericType
 {
-    public function __construct(private ?float $value) {
-    }
-
-    public function value(): mixed
-    {
-        return $this->value;
-    }
 }

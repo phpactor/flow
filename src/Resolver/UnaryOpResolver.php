@@ -21,9 +21,13 @@ class UnaryOpResolver implements ElementResolver
         $operand = $interpreter->interpret($frame, $node->operand);
         $value = match ($node->operator->getText($node->getFileContents())) {
             '!' => $operand->type()->negate(),
-            default => new MixedType()
+            default => null 
         };
 
-        return new UnaryOpElement(NodeBridge::rangeFromNode($node), $operand, new BooleanType($value));
+        return new UnaryOpElement(
+            NodeBridge::rangeFromNode($node),
+            $operand,
+            new BooleanType($value)
+        );
     }
 }

@@ -20,6 +20,8 @@ use Microsoft\PhpParser\Node\Statement\InlineHtml;
 use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Microsoft\PhpParser\Node\StringLiteral;
+use Microsoft\PhpParser\Parser;
+use Phpactor\Flow\Element\ClassDeclarationElement;
 use Phpactor\Flow\Element\NamespaceDefinitionElement;
 use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Evaluator\GetClassEvaluator;
@@ -49,7 +51,12 @@ use RuntimeException;
 
 class Flow
 {
-    public function __construct(private readonly array $resolvers = [])
+    /**
+     * @param ElementResolver[] $resolvers
+     */
+    public function __construct(
+        private readonly array $resolvers = []
+    )
     {
     }
 
@@ -70,7 +77,8 @@ class Flow
             ClassDeclaration::class => new ClassDeclarationResolver(),
             ObjectCreationExpression::Class => new ObjectCreationExpressionResolver(),
             CallExpression::class => new CallExpressionResolver(
-                new FunctionEvaluator([
+                new Reflector(),
+                new FunctionExecutor([
                     'get_class' => new GetClassEvaluator(),
                 ])
             ),
@@ -96,14 +104,9 @@ class Flow
         return new UnmanagedElement(
             get_class($node),
             NodeBridge::rangeFromNode($node),
-            array_map(function (Node $node) {
+            array_map(function (Node $node) use ($frame) {
                 return $this->interpret($frame, $node);
             }, iterator_to_array($node->getChildNodes()))
         );
-    }
-
-    public function reflectClass(FullyQualifiedName $fullyQualifiedName): ReflectionClass
-    {
-        return new ReflectionClass();
     }
 }

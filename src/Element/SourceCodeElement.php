@@ -7,6 +7,9 @@ use Phpactor\Flow\Range;
 
 final class SourceCodeElement extends Element
 {
+    /**
+     * @param Element[] $statements
+     */
     public function __construct(
         public Range $range,
         public array $statements

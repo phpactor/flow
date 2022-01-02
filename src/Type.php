@@ -13,19 +13,11 @@ abstract class Type
 
     public function strictEquals(Type $type): BooleanType
     {
-        if (!$type instanceof Type) {
-            return $this;
-        }
-
         return new BooleanType($type->value() === $this->value());
     }
 
     public function strictUnequals(Type $type): BooleanType
     {
-        if (!$type instanceof Type) {
-            return false;
-        }
-
         return new BooleanType($type->value() !== $this->value());
     }
 

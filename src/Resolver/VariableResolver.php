@@ -26,7 +26,7 @@ class VariableResolver implements ElementResolver
 
         $name = self::UNKNOWN_VARNAME;
         if ($node->name instanceof Token) {
-            $name = $node->name->getText($node->getFileContents());
+            $name = (string)$node->name->getText($node->getFileContents());
         }
 
         return new VariableElement(

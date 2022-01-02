@@ -16,7 +16,7 @@ final class Frame
         return new self();
     }
 
-    public function setVariable(VariableElement $variable)
+    public function setVariable(VariableElement $variable): void
     {
         $this->vars[$variable->name()] = $variable;
     }

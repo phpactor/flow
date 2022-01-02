@@ -17,9 +17,9 @@ abstract class Element
     abstract public function range(): Range;
 
     /**
-     * @template T
+     * @template T of Element
      * @param class-string<T> $class
-     * @return T
+     * @return T|null
      */
     public function lastChildByClass(string $class): ?Element
     {
@@ -41,7 +41,7 @@ abstract class Element
             ));
         }
 
-        return new InvalidType();
+        return new InvalidType('Type not implemented');
     }
 
     /**
@@ -49,7 +49,7 @@ abstract class Element
      * - <child>
      * - Text after last child
      */
-    public function toString(string $code)
+    public function toString(string $code): string
     {
         $prefixStart = $this->range()->fullStart();
         $prefixEnd = $this->range()->end();

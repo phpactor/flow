@@ -40,7 +40,7 @@ class ObjectCreationExpressionResolver implements ElementResolver
         }
 
         if ($node instanceof Variable) {
-            return $frame->getVariable($node->getName()) ?? new MixedType();
+            return $frame->getVariable($node->getName())?->type() ?? new MixedType();
         }
 
         return new UnresolvedType(sprintf(

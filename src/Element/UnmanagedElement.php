@@ -6,12 +6,14 @@ use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\MixedType;
-use Phpactor\Flow\Type\MixedType;
 
 class UnmanagedElement extends Element
 {
+    /**
+     * @param Element[] $children
+     */
     public function __construct(
-        private string $nodeType,
+        public readonly string $nodeType,
         private Range $range,
         private array $children
     )

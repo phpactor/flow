@@ -2,17 +2,22 @@
 
 namespace Phpactor\Flow\Reflection;
 
+use Phpactor\Flow\Element\ClassDeclarationElement;
+use Phpactor\Flow\Flow;
 use Phpactor\Flow\Reflection\Collection\MemberCollection;
+use Phpactor\Flow\Reflection\Collection\MethodCollection;
 use Phpactor\Name\FullyQualifiedName;
 
 final class ReflectionClass
 {
-    /**
-     * @return MemberCollection<ReflectionMethod>
-     */
-    public function methods(): MemberCollection
+    public function __construct(
+    )
     {
-        return new MemberCollection();
+    }
+
+    public function methods(): MethodCollection
+    {
+        return new MethodCollection();
     }
 
     public function name(): FullyQualifiedName
