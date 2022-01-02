@@ -8,7 +8,7 @@ use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\BinaryExpressionElement;
 use Phpactor\Flow\Frame;
-use Phpactor\Flow\Flow;
+use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
 use Phpactor\Flow\Type\ComparableType;
 use Phpactor\Flow\Type\IntegerType;
@@ -21,7 +21,7 @@ use UnhandledMatchError;
 
 class BinaryExpressionResolver implements ElementResolver
 {
-    public function resolve(Flow $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof BinaryExpression);
         $left = $interpreter->interpret($frame, $node->leftOperand);

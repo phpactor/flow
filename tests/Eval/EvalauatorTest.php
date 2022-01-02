@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Phpactor\Flow\Element\ReturnStatementElement;
 use Phpactor\Flow\FlowBuilder;
 use Phpactor\Flow\Frame;
-use Phpactor\Flow\Flow;
+use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
 
 class EvalauatorTest extends TestCase

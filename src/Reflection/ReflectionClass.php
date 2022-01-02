@@ -3,7 +3,7 @@
 namespace Phpactor\Flow\Reflection;
 
 use Phpactor\Flow\Element\ClassDeclarationElement;
-use Phpactor\Flow\Flow;
+use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Reflection\Collection\MemberCollection;
 use Phpactor\Flow\Reflection\Collection\MethodCollection;
 use Phpactor\Name\FullyQualifiedName;

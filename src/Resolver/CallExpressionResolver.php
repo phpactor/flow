@@ -16,7 +16,7 @@ use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\CallExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\FunctionExecutor;
-use Phpactor\Flow\Flow;
+use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
@@ -30,7 +30,7 @@ class CallExpressionResolver implements ElementResolver
     public function __construct(private ClassReflector $reflector, private FunctionExecutor $evaluator)
     {
     }
-    public function resolve(Flow $flow, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $flow, Frame $frame, Node $node): Element
     {
         assert($node instanceof CallExpression);
 
@@ -54,7 +54,7 @@ class CallExpressionResolver implements ElementResolver
 
     private function resolveType(
         Frame $frame,
-        Flow $flow,
+        Interpreter $flow,
         QualifiedName|Expression $expression,
         Types $arguments
     ): Type
@@ -75,7 +75,7 @@ class CallExpressionResolver implements ElementResolver
         return $this->evaluator->evaluate($functionName, $arguments);
     }
 
-    private function resolveMemberAccess(Frame $frame, Flow $flow, MemberAccessExpression $expression, Types $arguments): Type
+    private function resolveMemberAccess(Frame $frame, Interpreter $flow, MemberAccessExpression $expression, Types $arguments): Type
     {
         /** @phpstan-ignore-next-line */
         $name = $expression?->memberName->getText($expression->getFileContents());

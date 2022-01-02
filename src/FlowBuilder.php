@@ -40,9 +40,9 @@ use Phpactor\Flow\Resolver\VariableResolver;
 
 final class FlowBuilder
 {
-    public static function build(): Flow
+    public static function build(): Interpreter
     {
-        return new Flow([
+        return new Interpreter([
             SourceFileNode::class => new SourceCodeResolver(),
             ReturnStatement::class => new ReturnStatementResolver(),
             BinaryExpression::class => new BinaryExpressionResolver(),

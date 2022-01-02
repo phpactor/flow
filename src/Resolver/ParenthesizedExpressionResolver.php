@@ -10,7 +10,7 @@ use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\ParenthesizedExpressionElement;
 use Phpactor\Flow\Element\ParenthesizedExpressionExpressionElement;
 use Phpactor\Flow\Frame;
-use Phpactor\Flow\Flow;
+use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
 use Phpactor\Flow\Type\ComparableType;
 use Phpactor\Flow\Type\IntegerType;
@@ -20,7 +20,7 @@ use Phpactor\Flow\Util\NodeBridge;
 
 class ParenthesizedExpressionResolver implements ElementResolver
 {
-    public function resolve(Flow $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof ParenthesizedExpression);
 

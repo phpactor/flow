@@ -6,5 +6,5 @@ use Microsoft\PhpParser\Node;
 
 interface ElementResolver
 {
-    public function resolve(Flow $interpreter, Frame $frame, Node $node): Element;
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element;
 }

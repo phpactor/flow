@@ -14,7 +14,7 @@ use Phpactor\Name\FullyQualifiedName;
 use Phpactor\TextDocument\ByteOffsetRange;
 use RuntimeException;
 
-class Flow
+class Interpreter
 {
     /**
      * @param ElementResolver[] $resolvers
