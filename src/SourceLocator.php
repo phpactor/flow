@@ -4,6 +4,7 @@ namespace Phpactor\Flow;
 
 use Microsoft\PhpParser\Node;
 use Phpactor\Name\FullyQualifiedName;
+use Phpactor\TextDocument\TextDocument;
 
 interface SourceLocator
 {
@@ -14,5 +15,5 @@ interface SourceLocator
     /**
      * @param self::TYPE_CLASS|self::TYPE_FUNCTION|self::TYPE_CONSTANT|null $type
      */
-    public function locate(FullyQualifiedName $name, ?string $type = null): Node;
+    public function locate(FullyQualifiedName $name, ?string $type = null): ?TextDocument;
 }

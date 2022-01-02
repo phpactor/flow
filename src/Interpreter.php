@@ -20,6 +20,7 @@ class Interpreter
      * @param ElementResolver[] $resolvers
      */
     public function __construct(
+        private AstLocator $locator,
         private readonly array $resolvers = []
     )
     {
@@ -44,6 +45,23 @@ class Interpreter
             array_map(function (Node $node) use ($frame) {
                 return $this->interpret($frame, $node);
             }, iterator_to_array($node->getChildNodes()))
+        );
+    }
+
+    public function reflectClass(FullyQualifiedName $fullyQualifiedName, Types $arguments): ?ReflectionClass
+    {
+        $node = $this->locator->locate($fullyQualifiedName, SourceLocator::TYPE_CLASS);
+
+        if (null === $node) {
+            return null;
+        }
+
+        return new ReflectionClass(
+            $this->interpret(
+                new Frame(),
+                $node
+            ),
+            $arguments
         );
     }
 }

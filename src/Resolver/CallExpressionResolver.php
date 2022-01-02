@@ -27,10 +27,11 @@ use Phpactor\Flow\Util\NodeBridge;
 
 class CallExpressionResolver implements ElementResolver
 {
-    public function __construct(private ClassReflector $reflector, private FunctionExecutor $evaluator)
+    public function __construct(private FunctionExecutor $evaluator)
     {
     }
-    public function resolve(Interpreter $flow, Frame $frame, Node $node): Element
+
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof CallExpression);
 
@@ -38,7 +39,7 @@ class CallExpressionResolver implements ElementResolver
             array_map(
                 fn(Element $e) => $e->type(),
                 array_map(
-                    fn(Node $expr) => $flow->interpret($frame, $expr),
+                    fn(Node $expr) => $interpreter->interpret($frame, $expr),
                     array_filter(
                         iterator_to_array($node->argumentExpressionList?->getElements() ?? new ArrayIterator([])),
                         fn (Token|Node $n) => $n instanceof Node
@@ -47,14 +48,14 @@ class CallExpressionResolver implements ElementResolver
             )
         );
 
-        $type = $this->resolveType($frame, $flow, $node->callableExpression, $arguments);
+        $type = $this->resolveType($frame, $interpreter, $node->callableExpression, $arguments);
 
         return new CallExpressionElement(NodeBridge::rangeFromNode($node), $type);
     }
 
     private function resolveType(
         Frame $frame,
-        Interpreter $flow,
+        Interpreter $interpreter,
         QualifiedName|Expression $expression,
         Types $arguments
     ): Type
@@ -64,7 +65,7 @@ class CallExpressionResolver implements ElementResolver
         }
 
         if ($expression instanceof MemberAccessExpression) {
-            return $this->resolveMemberAccess($frame, $flow, $expression, $arguments);
+            return $this->resolveMemberAccess($frame, $interpreter, $expression, $arguments);
         }
 
         return new UnresolvedType(sprintf('Do not know how to handle call expression of type "%s"', get_class($expression)));
@@ -75,11 +76,11 @@ class CallExpressionResolver implements ElementResolver
         return $this->evaluator->evaluate($functionName, $arguments);
     }
 
-    private function resolveMemberAccess(Frame $frame, Interpreter $flow, MemberAccessExpression $expression, Types $arguments): Type
+    private function resolveMemberAccess(Frame $frame, Interpreter $interpreter, MemberAccessExpression $expression, Types $arguments): Type
     {
         /** @phpstan-ignore-next-line */
         $name = $expression?->memberName->getText($expression->getFileContents());
-        $dereferencable = $flow->interpret($frame, $expression->dereferencableExpression);
+        $dereferencable = $interpreter->interpret($frame, $expression->dereferencableExpression);
         $dereferenableType = $dereferencable->type();
 
         if (!$dereferenableType instanceof ClassType) {
@@ -88,7 +89,7 @@ class CallExpressionResolver implements ElementResolver
             ));
         }
 
-        $class = $this->reflector->reflectClass($dereferenableType->fqn());
+        $class = $interpreter->reflectClass($dereferenableType->fqn());
         $member = $class->methods()->get((string)$name);
 
         if (null === $member) {

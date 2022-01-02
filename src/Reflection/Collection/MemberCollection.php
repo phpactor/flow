@@ -10,10 +10,23 @@ use Phpactor\Flow\Reflection\ReflectionMember;
 class MemberCollection
 {
     /**
+     * @param TMember[] $members
+     */
+    public function __construct(private array $members)
+    {
+    }
+
+    /**
      * @return TMember
      */
     public function get(string $name): ?ReflectionMember
     {
+        foreach ($this->members as $member) {
+            if ($member->name() === $name) {
+                return $member;
+            }
+        }
+
         return null;
     }
 }

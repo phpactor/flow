@@ -38,44 +38,59 @@ use Phpactor\Flow\Resolver\SourceCodeResolver;
 use Phpactor\Flow\Resolver\StringLiteralResolver;
 use Phpactor\Flow\Resolver\UnaryOpResolver;
 use Phpactor\Flow\Resolver\VariableResolver;
+use Phpactor\Flow\SourceLocator\NullLocator;
 
 final class FlowBuilder
 {
+    public function __construct(private Parser $parser, private SourceLocator $locator)
+    {
+    }
+
     public static function create(): FlowBuilder
     {
-        return new self();
+        return new self(new Parser(), new NullLocator());
     }
 
     public function build(): Flow
     {
-        return new Flow(new Parser(), $this->createInterpreter());
+        return new Flow(
+            $this->parser,
+            $this->createInterpreter()
+        );
     }
 
     private function createInterpreter(): Interpreter
     {
-        return new Interpreter([
-            SourceFileNode::class => new SourceCodeResolver(),
-            ReturnStatement::class => new ReturnStatementResolver(),
-            BinaryExpression::class => new BinaryExpressionResolver(),
-            ReservedWord::class => new ReservedWordResolver(),
-            UnaryOpExpression::class => new UnaryOpResolver(),
-            InlineHtml::class => new InlineHtmlResolver(),
-            ExpressionStatement::class => new ExpressionStatementResolver(),
-            AssignmentExpression::class => new AssignmentExpressionResolver(),
-            Variable::class => new VariableResolver(),
-            NumericLiteral::class => new NumericLiteralResolver(),
-            ParenthesizedExpression::class => new ParenthesizedExpressionResolver(),
-            ClassDeclaration::class => new ClassDeclarationResolver(),
-            ObjectCreationExpression::Class => new ObjectCreationExpressionResolver(),
-            CallExpression::class => new CallExpressionResolver(
-                new Reflector(),
-                new FunctionExecutor([
-                    'get_class' => new GetClassEvaluator(),
-                ])
-            ),
-            StringLiteral::class => new StringLiteralResolver(),
-            ArgumentExpression::class => new ArgumentExpressionResolver(),
-            NamespaceDefinition::class => new NamespaceDefinitionResolver(),
-        ]);
+        return new Interpreter(
+            $this->createNodeLocator(),
+            [
+                SourceFileNode::class => new SourceCodeResolver(),
+                ReturnStatement::class => new ReturnStatementResolver(),
+                BinaryExpression::class => new BinaryExpressionResolver(),
+                ReservedWord::class => new ReservedWordResolver(),
+                UnaryOpExpression::class => new UnaryOpResolver(),
+                InlineHtml::class => new InlineHtmlResolver(),
+                ExpressionStatement::class => new ExpressionStatementResolver(),
+                AssignmentExpression::class => new AssignmentExpressionResolver(),
+                Variable::class => new VariableResolver(),
+                NumericLiteral::class => new NumericLiteralResolver(),
+                ParenthesizedExpression::class => new ParenthesizedExpressionResolver(),
+                ClassDeclaration::class => new ClassDeclarationResolver(),
+                ObjectCreationExpression::Class => new ObjectCreationExpressionResolver(),
+                CallExpression::class => new CallExpressionResolver(
+                    new FunctionExecutor([
+                        'get_class' => new GetClassEvaluator(),
+                    ])
+                ),
+                StringLiteral::class => new StringLiteralResolver(),
+                ArgumentExpression::class => new ArgumentExpressionResolver(),
+                NamespaceDefinition::class => new NamespaceDefinitionResolver(),
+            ]
+        );
+    }
+
+    private function createNodeLocator(): AstLocator
+    {
+        return new AstLocator($this->parser, $this->locator);
     }
 }

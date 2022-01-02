@@ -8,7 +8,7 @@ use Phpactor\Name\FullyQualifiedName;
 
 class Reflector implements ClassReflector
 {
-    public function __construct() {
+    public function __construct(Parser $parser) {
     }
 
     public function reflectClass(FullyQualifiedName $name, ?Types $parameters = null): ReflectionClass

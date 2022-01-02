@@ -12,4 +12,6 @@ abstract class ReflectionMember
     {
         return new UnresolvedType('To be implemented');
     }
+
+    abstract function name(): string;
 }
