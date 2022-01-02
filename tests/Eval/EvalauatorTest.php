@@ -7,6 +7,7 @@ use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Microsoft\PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
 use Phpactor\Flow\Element\ReturnStatementElement;
+use Phpactor\Flow\FlowBuilder;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Flow;
 use Phpactor\Flow\Type\BooleanType;
@@ -18,8 +19,8 @@ class EvalauatorTest extends TestCase
      */
     public function testEval(string $path): void
     {
-        $code = file_get_contents($path);
-        $interpreter = Flow::create();
+        $code = (string)file_get_contents($path);
+        $interpreter = FlowBuilder::create()->build();
         $parser = new Parser();
         $node = $parser->parseSourceFile($code);
         $interpreted = $interpreter->interpret(
@@ -47,10 +48,13 @@ class EvalauatorTest extends TestCase
         );
     }
 
+    /**
+     * @return Generator<mixed>
+     */
     public function provideEval(): Generator
     {
-        foreach (glob(__DIR__ . '/*/*.phpt') as $path) {
-            yield dirname($path) .'/'. basename($path) => [
+        foreach ((array)glob(__DIR__ . '/*/*.phpt') as $path) {
+            yield dirname((string)$path) .'/'. basename((string)$path) => [
                 $path,
             ];
         }
