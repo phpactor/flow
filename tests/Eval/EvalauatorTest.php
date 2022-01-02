@@ -20,13 +20,8 @@ class EvalauatorTest extends TestCase
     public function testEval(string $path): void
     {
         $code = (string)file_get_contents($path);
-        $interpreter = FlowBuilder::create()->build();
-        $parser = new Parser();
-        $node = $parser->parseSourceFile($code);
-        $interpreted = $interpreter->interpret(
-            Frame::new(),
-            $node
-        );
+        $flow = FlowBuilder::create()->build();
+        $interpreted = $flow->represent($code);
 
         self::assertEquals(
             new BooleanType(true),

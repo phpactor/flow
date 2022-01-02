@@ -19,6 +19,7 @@ use Microsoft\PhpParser\Node\Statement\InlineHtml;
 use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Microsoft\PhpParser\Node\StringLiteral;
+use Microsoft\PhpParser\Parser;
 use Phpactor\Flow\Evaluator\GetClassEvaluator;
 use Phpactor\Flow\Resolver\ArgumentExpressionResolver;
 use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
@@ -40,7 +41,17 @@ use Phpactor\Flow\Resolver\VariableResolver;
 
 final class FlowBuilder
 {
-    public static function build(): Interpreter
+    public static function create(): FlowBuilder
+    {
+        return new self();
+    }
+
+    public function build(): Flow
+    {
+        return new Flow(new Parser(), $this->createInterpreter());
+    }
+
+    private function createInterpreter(): Interpreter
     {
         return new Interpreter([
             SourceFileNode::class => new SourceCodeResolver(),
@@ -66,10 +77,5 @@ final class FlowBuilder
             ArgumentExpression::class => new ArgumentExpressionResolver(),
             NamespaceDefinition::class => new NamespaceDefinitionResolver(),
         ]);
-    }
-
-    public static function create(): FlowBuilder
-    {
-        return new self();
     }
 }
