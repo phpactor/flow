@@ -21,6 +21,8 @@ use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Microsoft\PhpParser\Node\StringLiteral;
 use Microsoft\PhpParser\Parser;
+use Phpactor\DocblockParser\Lexer;
+use Phpactor\DocblockParser\Parser as PhpactorParser;
 use Phpactor\Flow\Evaluator\GetClassEvaluator;
 use Phpactor\Flow\Resolver\ArgumentExpressionResolver;
 use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
@@ -78,6 +80,7 @@ final class FlowBuilder
     {
         return new Interpreter(
             $this->createNodeLocator(),
+            $this->createDocblockFactory(),
             [
                 SourceFileNode::class => new SourceCodeResolver(),
                 ReturnStatement::class => new ReturnStatementResolver(),
@@ -113,5 +116,10 @@ final class FlowBuilder
     private function createLocator(): SourceLocator
     {
         return new ChainLocator($this->locators);
+    }
+
+    private function createDocblockFactory(): DocblockFactory
+    {
+        return new DocblockFactory(new Lexer(), new PhpactorParser());
     }
 }

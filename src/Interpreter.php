@@ -3,6 +3,8 @@
 namespace Phpactor\Flow;
 
 use Microsoft\PhpParser\Node;
+use Phpactor\DocblockParser\Ast\Docblock;
+use Phpactor\DocblockParser\Ast\Node as DocblockNode;
 use Phpactor\Flow\Element\ClassDeclarationElement;
 use Phpactor\Flow\Element\NamespaceDefinitionElement;
 use Phpactor\Flow\Element\UnmanagedElement;
@@ -21,6 +23,7 @@ class Interpreter
      */
     public function __construct(
         private AstLocator $locator,
+        private DocblockFactory $docblockFactory,
         private readonly array $resolvers = []
     )
     {
@@ -48,6 +51,25 @@ class Interpreter
         );
     }
 
+    /**
+     * @template TClass of Element
+     * @param class-string<TClass> $class
+     * @return TClass
+     */
+    private function interpretClass(Frame $frame, Node $node, string $class): Element
+    {
+        $element = $this->interpret($frame, $node);
+        if (!$element instanceof $class) {
+            throw new RuntimeException(sprintf(
+                'Expected element of type "%s" but got "%s"',
+                $class, get_class($element)
+            ));
+        }
+
+        return $element;
+
+    }
+
     public function reflectClass(FullyQualifiedName $fullyQualifiedName, Types $arguments): ?ReflectionClass
     {
         $node = $this->locator->locate($fullyQualifiedName, SourceLocator::TYPE_CLASS);
@@ -57,11 +79,17 @@ class Interpreter
         }
 
         return new ReflectionClass(
-            $this->interpret(
+            $this->interpretClass(
                 new Frame(),
-                $node
+                $node,
+                ClassDeclarationElement::class
             ),
             $arguments
         );
+    }
+
+    public function docblock(string $docblock): Docblock
+    {
+        return $this->docblockFactory->create($docblock);
     }
 }

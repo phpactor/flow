@@ -32,8 +32,6 @@ class ClassDeclarationResolver implements ElementResolver
             $memberElements[] = $interpreter->interpret($frame, $member);
         }
 
-        $type = new InvalidType('implement me');
-
         return new ClassDeclarationElement(
             NodeBridge::rangeFromNode($node),
             $memberElements

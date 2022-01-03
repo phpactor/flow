@@ -43,7 +43,7 @@ Reflection (with templating):
 
 ```
 /**
- * @template T, K
+ * @template T
  */
 class Foobar { 
     /** @return T */
