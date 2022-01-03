@@ -37,7 +37,8 @@ abstract class Element
     {
         if (DebugHelper::isDebug()) {
             throw new RuntimeException(sprintf(
-                'Type not implemented: "%s"', get_class($this)
+                'Type not implemented: "%s"',
+                get_class($this)
             ));
         }
 

@@ -9,15 +9,10 @@ use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\BinaryExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
-use Phpactor\Flow\Type\BooleanType;
-use Phpactor\Flow\Type\ComparableType;
-use Phpactor\Flow\Type\IntegerType;
 use Phpactor\Flow\Type\InvalidType;
-use Phpactor\Flow\Type\MixedType;
 use Phpactor\Flow\Util\DebugHelper;
 use Phpactor\Flow\Util\NodeBridge;
 use RuntimeException;
-use UnhandledMatchError;
 
 class BinaryExpressionResolver implements ElementResolver
 {
@@ -40,7 +35,8 @@ class BinaryExpressionResolver implements ElementResolver
             '%' => $leftType->modulo($rightType),
             '/' => $leftType->divide($rightType),
             default => DebugHelper::isDebug() ? throw new RuntimeException(sprintf(
-                'Unknown operator "%s"', $condition
+                'Unknown operator "%s"',
+                $condition
             )) : new InvalidType(sprintf('Unknown operator "%s"', $condition))
         };
 

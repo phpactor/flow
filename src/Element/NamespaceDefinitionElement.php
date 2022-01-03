@@ -4,7 +4,6 @@ namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
-use Phpactor\Flow\Type;
 
 class NamespaceDefinitionElement extends Element
 {

@@ -19,7 +19,7 @@ final class DocblockBridge
     {
         if ($docType instanceof UnionNode) {
             return new UnionType(new Types(array_map(
-                fn(TypeNode $docType) => self::type($node, $docType),
+                fn (TypeNode $docType) => self::type($node, $docType),
                 iterator_to_array($docType->types->types())
             )));
         }

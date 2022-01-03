@@ -2,7 +2,6 @@
 
 namespace Phpactor\Flow\Util;
 
-use Microsoft\PhpParser\MissingToken;
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\DelimitedList\QualifiedNameList;
 use Microsoft\PhpParser\Node\QualifiedName;
@@ -18,7 +17,6 @@ use Phpactor\Flow\Types;
 use Phpactor\Flow\Type\UnionType;
 use Phpactor\Name\FullyQualifiedName;
 use Phpactor\TextDocument\ByteOffset;
-use Phpactor\TextDocument\ByteOffsetRange;
 use function is_object;
 
 class NodeBridge
@@ -54,7 +52,8 @@ class NodeBridge
             return match ($type) {
                 'string' => new StringType(null),
                 default => new InvalidType(sprintf(
-                    'Do not recognize type "%s"', $type
+                    'Do not recognize type "%s"',
+                    $type
                 ))
             };
         }

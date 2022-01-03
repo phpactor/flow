@@ -29,4 +29,3 @@ class ChainLocator implements SourceLocator
         return null;
     }
 }
-

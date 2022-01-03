@@ -25,7 +25,7 @@ class GetClassEvaluator implements FunctionEvaluator
                 $types[] = (string)$type->fqn();
             }
             return new UnionType(new Types(array_map(
-                fn(string $fqn) => new StringType($fqn),
+                fn (string $fqn) => new StringType($fqn),
                 $types
             )));
         }
@@ -37,4 +37,3 @@ class GetClassEvaluator implements FunctionEvaluator
         return new InvalidType('Argument passed to get_class was not a class type');
     }
 }
-

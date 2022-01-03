@@ -3,7 +3,6 @@
 namespace Phpactor\Flow\Element;
 
 use Generator;
-use Microsoft\PhpParser\Node\MethodDeclaration;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 

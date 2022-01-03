@@ -12,8 +12,7 @@ final class VariableElement extends Element
         private Range $range,
         private string $name,
         private Type $type
-    )
-    {
+    ) {
     }
 
     /**

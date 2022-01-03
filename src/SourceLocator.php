@@ -2,7 +2,6 @@
 
 namespace Phpactor\Flow;
 
-use Microsoft\PhpParser\Node;
 use Phpactor\Name\FullyQualifiedName;
 use Phpactor\TextDocument\TextDocument;
 

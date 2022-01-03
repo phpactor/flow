@@ -10,8 +10,7 @@ class Range
         private ByteOffset $fullStart,
         private ByteOffset $start,
         private ByteOffset $end
-    )
-    {
+    ) {
     }
 
     public function start(): ByteOffset

@@ -12,7 +12,6 @@ use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\FloatType;
 use Phpactor\Flow\Type\IntegerType;
 use Phpactor\Flow\Util\NodeBridge;
-use Phpactor\TextDocument\ByteOffsetRange;
 
 class NumericLiteralResolver implements ElementResolver
 {

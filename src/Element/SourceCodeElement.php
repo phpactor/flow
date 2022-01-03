@@ -13,8 +13,7 @@ final class SourceCodeElement extends Element
     public function __construct(
         public Range $range,
         public array $statements
-    )
-    {
+    ) {
     }
 
     /**

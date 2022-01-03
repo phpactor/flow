@@ -2,9 +2,7 @@
 
 namespace Phpactor\Flow;
 
-use MongoDB\BSON\Undefined;
 use Phpactor\Flow\Type\MixedType;
-use Phpactor\Name\FullyQualifiedName;
 
 final class FunctionExecutor
 {

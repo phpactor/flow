@@ -4,8 +4,6 @@ namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
-use Phpactor\Flow\Type;
-use Phpactor\Flow\Type\MixedType;
 
 class UnmanagedElement extends Element
 {
@@ -16,8 +14,7 @@ class UnmanagedElement extends Element
         public readonly string $nodeType,
         private Range $range,
         private array $children
-    )
-    {
+    ) {
     }
 
     /**

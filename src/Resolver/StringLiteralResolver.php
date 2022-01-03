@@ -4,7 +4,6 @@ namespace Phpactor\Flow\Resolver;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\StringLiteral;
-use Microsoft\PhpParser\SomeNode;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\ScalarElement;

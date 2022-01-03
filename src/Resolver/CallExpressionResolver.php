@@ -8,9 +8,7 @@ use Microsoft\PhpParser\Node\Expression;
 use Microsoft\PhpParser\Node\Expression\CallExpression;
 use Microsoft\PhpParser\Node\Expression\MemberAccessExpression;
 use Microsoft\PhpParser\Node\QualifiedName;
-use Microsoft\PhpParser\SomeNode;
 use Microsoft\PhpParser\Token;
-use Phpactor\Flow\ClassReflector;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\CallExpressionElement;
@@ -20,7 +18,6 @@ use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
-use Phpactor\Flow\Type\StringType;
 use Phpactor\Flow\Type\UnresolvedType;
 use Phpactor\Flow\Types;
 use Phpactor\Flow\Util\NodeBridge;
@@ -37,9 +34,9 @@ class CallExpressionResolver implements ElementResolver
 
         $arguments = new Types(
             array_map(
-                fn(Element $e) => $e->type(),
+                fn (Element $e) => $e->type(),
                 array_map(
-                    fn(Node $expr) => $interpreter->interpret($frame, $expr),
+                    fn (Node $expr) => $interpreter->interpret($frame, $expr),
                     array_filter(
                         iterator_to_array($node->argumentExpressionList?->getElements() ?? new ArrayIterator([])),
                         fn (Token|Node $n) => $n instanceof Node
@@ -58,8 +55,7 @@ class CallExpressionResolver implements ElementResolver
         Interpreter $interpreter,
         QualifiedName|Expression $expression,
         Types $arguments
-    ): Type
-    {
+    ): Type {
         if ($expression instanceof QualifiedName) {
             return $this->resolveFunction((string)$expression, $arguments);
         }
@@ -85,7 +81,8 @@ class CallExpressionResolver implements ElementResolver
 
         if (!$dereferenableType instanceof ClassType) {
             return new InvalidType(sprintf(
-                'Method call on non-class type "%s"', get_class($dereferenableType)
+                'Method call on non-class type "%s"',
+                get_class($dereferenableType)
             ));
         }
 
@@ -103,7 +100,8 @@ class CallExpressionResolver implements ElementResolver
         if (null === $member) {
             return new InvalidType(sprintf(
                 'Method "%s" does not exist on class "%s"',
-                $name, (string)$class->name()
+                $name,
+                (string)$class->name()
             ));
         }
 

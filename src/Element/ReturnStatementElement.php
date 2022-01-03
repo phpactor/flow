@@ -2,7 +2,6 @@
 
 namespace Phpactor\Flow\Element;
 
-use Microsoft\PhpParser\Node;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;

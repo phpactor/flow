@@ -5,7 +5,6 @@ namespace Phpactor\Flow\Element;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
-use Phpactor\TextDocument\ByteOffset;
 
 class UnaryOpElement extends Element
 {
@@ -13,8 +12,7 @@ class UnaryOpElement extends Element
         private Range $range,
         private Element $operand,
         private Type $type
-    )
-    {
+    ) {
     }
 
     public function type(): Type

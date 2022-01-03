@@ -14,10 +14,10 @@ final class UnionType extends Type
     public function strictEquals(Type $type): BooleanType
     {
         foreach ($this->types() as $subType) {
+            // @phpstan-ignore-next-line
             if ($type->strictEquals($subType)) {
                 return new BooleanType(true);
             }
-
         }
 
         return new BooleanType(false);

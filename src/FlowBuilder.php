@@ -43,7 +43,6 @@ use Phpactor\Flow\Resolver\StringLiteralResolver;
 use Phpactor\Flow\Resolver\UnaryOpResolver;
 use Phpactor\Flow\Resolver\VariableResolver;
 use Phpactor\Flow\SourceLocator\ChainLocator;
-use Phpactor\Flow\SourceLocator\NullLocator;
 use Phpactor\Flow\SourceLocator\StringLocator;
 
 final class FlowBuilder
@@ -94,7 +93,7 @@ final class FlowBuilder
                 NumericLiteral::class => new NumericLiteralResolver(),
                 ParenthesizedExpression::class => new ParenthesizedExpressionResolver(),
                 ClassDeclaration::class => new ClassDeclarationResolver(),
-                ObjectCreationExpression::Class => new ObjectCreationExpressionResolver(),
+                ObjectCreationExpression::class => new ObjectCreationExpressionResolver(),
                 CallExpression::class => new CallExpressionResolver(
                     new FunctionExecutor([
                         'get_class' => new GetClassEvaluator(),

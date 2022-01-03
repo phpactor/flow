@@ -7,7 +7,8 @@ use Phpactor\Flow\Range;
  
 class InlineHtmlElement extends Element
 {
-    public function __construct(private Range $range) {
+    public function __construct(private Range $range)
+    {
     }
 
     /**

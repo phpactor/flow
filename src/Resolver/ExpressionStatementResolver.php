@@ -21,5 +21,4 @@ class ExpressionStatementResolver implements ElementResolver
             $interpreter->interpret($frame, $node->expression)
         );
     }
-
 }

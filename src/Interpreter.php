@@ -4,16 +4,12 @@ namespace Phpactor\Flow;
 
 use Microsoft\PhpParser\Node;
 use Phpactor\DocblockParser\Ast\Docblock;
-use Phpactor\DocblockParser\Ast\Node as DocblockNode;
 use Phpactor\Flow\Element\ClassDeclarationElement;
-use Phpactor\Flow\Element\NamespaceDefinitionElement;
 use Phpactor\Flow\Element\UnmanagedElement;
-use Phpactor\Flow\Evaluator\GetClassEvaluator;
 use Phpactor\Flow\Reflection\ReflectionClass;
 use Phpactor\Flow\Util\DebugHelper;
 use Phpactor\Flow\Util\NodeBridge;
 use Phpactor\Name\FullyQualifiedName;
-use Phpactor\TextDocument\ByteOffsetRange;
 use RuntimeException;
 
 class Interpreter
@@ -25,8 +21,7 @@ class Interpreter
         private AstLocator $locator,
         private DocblockFactory $docblockFactory,
         private readonly array $resolvers = []
-    )
-    {
+    ) {
     }
 
     public function interpret(Frame $frame, Node $node): Element
@@ -62,12 +57,12 @@ class Interpreter
         if (!$element instanceof $class) {
             throw new RuntimeException(sprintf(
                 'Expected element of type "%s" but got "%s"',
-                $class, get_class($element)
+                $class,
+                get_class($element)
             ));
         }
 
         return $element;
-
     }
 
     public function reflectClass(FullyQualifiedName $fullyQualifiedName, Types $arguments): ?ReflectionClass

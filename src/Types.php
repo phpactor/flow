@@ -14,7 +14,8 @@ class Types implements IteratorAggregate
     /**
      * @param array<int,Type> $types
      */
-    public function __construct(private array $types) {
+    public function __construct(private array $types)
+    {
     }
 
     /**

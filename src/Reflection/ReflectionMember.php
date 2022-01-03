@@ -3,7 +3,6 @@
 namespace Phpactor\Flow\Reflection;
 
 use Phpactor\Flow\Type;
-use Phpactor\Flow\Type\InvalidType;
 use Phpactor\Flow\Type\UnresolvedType;
 
 abstract class ReflectionMember
@@ -13,5 +12,5 @@ abstract class ReflectionMember
         return new UnresolvedType('To be implemented');
     }
 
-    abstract function name(): string;
+    abstract public function name(): string;
 }

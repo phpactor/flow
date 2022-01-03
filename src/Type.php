@@ -16,11 +16,10 @@ abstract class Type
     {
         if ($type instanceof UnionType) {
             foreach ($type->types() as $subType) {
-
+                // @phpstan-ignore-next-line
                 if ($this->strictEquals($subType)) {
                     return new BooleanType(true);
                 }
-
             }
             return new BooleanType(false);
         }

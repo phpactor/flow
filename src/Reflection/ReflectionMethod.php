@@ -9,8 +9,7 @@ final class ReflectionMethod extends ReflectionMember
     public function __construct(
         private string $name,
         private Type $type
-    )
-    {
+    ) {
     }
 
     public function name(): string

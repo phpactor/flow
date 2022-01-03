@@ -3,13 +3,9 @@
 namespace Phpactor\Flow\Tests\Eval;
 
 use Generator;
-use Microsoft\PhpParser\Node\Statement\ReturnStatement;
-use Microsoft\PhpParser\Parser;
 use PHPUnit\Framework\TestCase;
 use Phpactor\Flow\Element\ReturnStatementElement;
 use Phpactor\Flow\FlowBuilder;
-use Phpactor\Flow\Frame;
-use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type\BooleanType;
 use Symfony\Component\Process\Process;
 
@@ -55,5 +51,4 @@ class EvalauatorTest extends TestCase
             ];
         }
     }
-
 }

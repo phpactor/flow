@@ -15,8 +15,7 @@ class BinaryExpressionElement extends Element
         private Token $operator,
         private Element $right,
         private Type $type,
-    )
-    {
+    ) {
     }
 
     public function left(): Element

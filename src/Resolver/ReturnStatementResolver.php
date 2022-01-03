@@ -22,5 +22,4 @@ final class ReturnStatementResolver implements ElementResolver
             $interpreter->interpret($frame, $node->expression)
         );
     }
-    
 }

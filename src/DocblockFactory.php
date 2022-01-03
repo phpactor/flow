@@ -3,7 +3,6 @@
 namespace Phpactor\Flow;
 
 use Phpactor\DocblockParser\Ast\Docblock;
-use Phpactor\DocblockParser\Ast\Node;
 use Phpactor\DocblockParser\Lexer;
 use Phpactor\DocblockParser\Parser;
 use RuntimeException;
@@ -19,7 +18,8 @@ class DocblockFactory
         $block = $this->parser->parse($this->lexer->lex($docblock));
         if (!$block instanceof Docblock) {
             throw new RuntimeException(sprintf(
-                'Expected a Docblock got a "%s"', get_class($block)
+                'Expected a Docblock got a "%s"',
+                get_class($block)
             ));
         }
         return $block;

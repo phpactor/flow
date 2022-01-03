@@ -2,8 +2,6 @@
 
 namespace Phpactor\Flow\Type;
 
-use Phpactor\Flow\Type;
-
 /**
  * @extends NumericType<float>
  */
