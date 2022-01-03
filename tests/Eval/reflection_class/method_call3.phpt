@@ -3,7 +3,10 @@
 class Foo {}
 class Bar {}
 class Foobar {
-    public function baz(): Foo|Bar {
+    /**
+     * @return Foo|Bar
+     */
+    public function baz()  {
         return new Bar();
     }
 }
