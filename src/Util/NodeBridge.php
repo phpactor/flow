@@ -14,9 +14,12 @@ use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
 use Phpactor\Flow\Type\StringType;
 use Phpactor\Flow\Type\UnresolvedType;
+use Phpactor\Flow\Types;
+use Phpactor\Flow\Type\UnionType;
 use Phpactor\Name\FullyQualifiedName;
 use Phpactor\TextDocument\ByteOffset;
 use Phpactor\TextDocument\ByteOffsetRange;
+use function is_object;
 
 class NodeBridge
 {
@@ -65,11 +68,13 @@ class NodeBridge
                 return reset($types);
             }
             
+            return new UnionType(new Types($types));
         }
 
         return new UnresolvedType(sprintf(
             'Did not know how to resolve type from "%s"',
-            get_class($parserType)
+            /** @phpstan-ignore-next-line */
+            is_object($parserType) ? get_class($parserType) : gettype($parserType)
         ));
     }
 }
