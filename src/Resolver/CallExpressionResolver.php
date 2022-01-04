@@ -46,6 +46,7 @@ class CallExpressionResolver implements ElementResolver
         );
 
         $type = $this->resolveType($frame, $interpreter, $node->callableExpression, $arguments);
+        $foo = '';
 
         return new CallExpressionElement(NodeBridge::rangeFromNode($node), $type);
     }
