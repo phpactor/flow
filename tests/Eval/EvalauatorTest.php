@@ -33,6 +33,7 @@ class EvalauatorTest extends TestCase
         ], null, null, $code);
         $process->mustRun();
 
+        dump($interpreted->toString($code));
         self::assertEquals(
             $code,
             $interpreted->toString($code),

@@ -2,6 +2,7 @@
 
 namespace Phpactor\Flow;
 
+use Generator;
 use Phpactor\Flow\Type\InvalidType;
 use Phpactor\Flow\Util\DebugHelper;
 use RuntimeException;
@@ -64,7 +65,8 @@ abstract class Element
         $string[] = mb_substr($code, $prefixStart->toInt(), $prefixEnd->toInt() - $prefixStart->toInt());
 
         foreach ($this->children() as $child) {
-            $string[] = $child->toString($code);
+            $s = $child->toString($code);
+            $string[] = $s;
             $prefixEnd = $child->range()->end();
         }
 
@@ -75,5 +77,19 @@ abstract class Element
         );
 
         return implode('', $string);
+    }
+
+    /**
+     * @template C
+     * @param class-string<C> $class
+     * @return Generator<C>
+     */
+    public function childrenByClass(string $class): Generator
+    {
+        foreach ($this->children() as $child) {
+            if ($child instanceof $class) {
+                yield $child;
+            }
+        }
     }
 }

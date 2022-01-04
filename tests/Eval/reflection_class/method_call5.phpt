@@ -3,10 +3,11 @@
 class Foo {}
 
 /**
- * @method baz(): Foo
+ * @method Foo baz()
+ * @method Foo boo()
  */
 class Foobar {
-    public function __call() {
+    public function __call(string $method, array $args) {
         return new Foo();
     }
 }

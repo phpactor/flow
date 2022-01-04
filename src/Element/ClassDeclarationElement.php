@@ -11,15 +11,20 @@ class ClassDeclarationElement extends Element
     /**
      * @param Element[] $members
      */
-    public function __construct(private Range $range, private array $members)
+    public function __construct(
+        private Range $range,
+        private DocblockElement $docblock,
+        private array $members
+    )
     {
     }
+
     /**
      * {@inheritDoc}
      */
     public function children(): array
     {
-        return $this->members;
+        return array_merge([$this->docblock], $this->members);
     }
 
     public function range(): Range
@@ -27,17 +32,8 @@ class ClassDeclarationElement extends Element
         return $this->range;
     }
 
-    /**
-     * @template C
-     * @param class-string<C> $class
-     * @return Generator<C>
-     */
-    public function childrenByClass(string $class): Generator
+    public function docblock(): DocblockElement
     {
-        foreach ($this->children() as $child) {
-            if ($child instanceof $class) {
-                yield $child;
-            }
-        }
+        return $this->docblock;
     }
 }
