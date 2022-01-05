@@ -6,7 +6,7 @@ use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
 
-class MethodDeclarationElement extends Element
+class MethodDeclarationElement extends MemberDeclarationElement
 {
     public function __construct(private Range $range, private string $name, private Type $type)
     {

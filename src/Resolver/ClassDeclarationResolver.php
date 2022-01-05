@@ -9,7 +9,9 @@ use Phpactor\DocblockParser\Ast\Tag\ReturnTag;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\ClassDeclarationElement;
+use Phpactor\Flow\Element\ClassMembersElement;
 use Phpactor\Flow\Element\DocblockElement;
+use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Range;
@@ -29,11 +31,7 @@ class ClassDeclarationResolver implements ElementResolver
 
         $docblockMembers = [];
         $prev = null;
-        $firstStart = 0;
         foreach ($docblock->descendantElements() as $method) {
-            if ($firstStart === 0) {
-                $firstStart = $method->start();
-            }
             if ($method instanceof MethodTag) {
                 $docblockMembers[] = DocblockBridge::element(
                     $node,
@@ -46,19 +44,17 @@ class ClassDeclarationResolver implements ElementResolver
 
         $docblockEement = new DocblockElement(new Range(
             ByteOffset::fromInt($node->getFullStartPosition()),
-            ByteOffset::fromInt($node->getFullStartPosition() + $firstStart),
+            ByteOffset::fromInt($node->getFullStartPosition() + $docblock->start()),
             ByteOffset::fromInt($node->getStartPosition()),
         ), $docblockMembers);
-
-        /** @phpstan-ignore-next-line */
-        foreach ($node?->classMembers?->classMemberDeclarations ?? [] as $member) {
-            $memberElements[] = $interpreter->interpret($frame, $member);
-        }
 
         return new ClassDeclarationElement(
             NodeBridge::rangeFromNode($node),
             $docblockEement,
-            $memberElements
+            NodeBridge::token($node->abstractOrFinalModifier, $node->getStartPosition()),
+            NodeBridge::token($node->classKeyword, $node->getStartPosition()),
+            NodeBridge::token($node->name),
+            $interpreter->interpretClass($frame, $node->classMembers, ClassMembersElement::class)
         );
     }
 }

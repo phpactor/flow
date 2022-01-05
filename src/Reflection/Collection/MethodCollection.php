@@ -25,7 +25,7 @@ final class MethodCollection extends MemberCollection
                     foreach ($element->docblock()->childrenByClass(MethodDeclarationElement::class) as $m) {
                         yield $m;
                     }
-                    foreach ($element->childrenByClass(MethodDeclarationElement::class) as $m) {
+                    foreach ($element->members()->childrenByClass(MethodDeclarationElement::class) as $m) {
                         yield $m;
                     }
                 })()

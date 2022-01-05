@@ -68,3 +68,21 @@ Principles
 - **Performant**: Must be fast for realtime analysis
 - **Tolerant**: Should not produce runtime errors from provided code
 - **Maintainable**: Easy to fix bugs and extend
+
+Alternative Apporaches
+----------------------
+
+- No IR
+- Use hash table to store type information
+-
+
+```
+[
+    $n1 => StringType("foo"),
+    $n2 => ClassType("Bar"),
+]
+```
+
+```
+$type = $interpreter->interpret($node);
+```

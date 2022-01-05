@@ -5,18 +5,13 @@ namespace Phpactor\Flow\Element;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
-use Phpactor\Flow\Type\MixedType;
 
-class UnmanagedElement extends Element
+class ClassMembersElement extends Element
 {
     /**
-     * @param Element[] $children
+     * @param MemberDeclarationElement[] $members
      */
-    public function __construct(
-        public readonly string $nodeType,
-        private Range $range,
-        private array $children
-    )
+    public function __construct(private Range $range, private array $members)
     {
     }
 
@@ -25,7 +20,7 @@ class UnmanagedElement extends Element
      */
     public function children(): array
     {
-        return $this->children;
+        return $this->members;
     }
 
     public function range(): Range
@@ -33,3 +28,4 @@ class UnmanagedElement extends Element
         return $this->range;
     }
 }
+

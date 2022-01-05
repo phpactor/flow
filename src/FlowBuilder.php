@@ -2,6 +2,7 @@
 
 namespace Phpactor\Flow;
 
+use Microsoft\PhpParser\Node\ClassMembersNode;
 use Microsoft\PhpParser\Node\Expression\ArgumentExpression;
 use Microsoft\PhpParser\Node\Expression\AssignmentExpression;
 use Microsoft\PhpParser\Node\Expression\BinaryExpression;
@@ -29,6 +30,7 @@ use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
 use Phpactor\Flow\Resolver\BinaryExpressionResolver;
 use Phpactor\Flow\Resolver\CallExpressionResolver;
 use Phpactor\Flow\Resolver\ClassDeclarationResolver;
+use Phpactor\Flow\Resolver\ClassMembersResolver;
 use Phpactor\Flow\Resolver\ExpressionStatementResolver;
 use Phpactor\Flow\Resolver\InlineHtmlResolver;
 use Phpactor\Flow\Resolver\MethodDeclarationResolver;
@@ -103,6 +105,7 @@ final class FlowBuilder
                 ArgumentExpression::class => new ArgumentExpressionResolver(),
                 NamespaceDefinition::class => new NamespaceDefinitionResolver(),
                 MethodDeclaration::class => new MethodDeclarationResolver(),
+                ClassMembersNode::class => new ClassMembersResolver(),
             ]
         );
     }

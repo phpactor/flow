@@ -51,7 +51,7 @@ class Interpreter
      * @param class-string<TClass> $class
      * @return TClass
      */
-    private function interpretClass(Frame $frame, Node $node, string $class): Element
+    public function interpretClass(Frame $frame, Node $node, string $class): Element
     {
         $element = $this->interpret($frame, $node);
         if (!$element instanceof $class) {

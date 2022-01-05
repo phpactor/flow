@@ -30,11 +30,15 @@ class NodeBridge
         );
     }
 
-    public static function token(Token $token): PhpactorToken
+    public static function token(?Token $token, int $fullStart = null): ?PhpactorToken
     {
+        if (null === $token) {
+            return null;
+        }
+
         return new PhpactorToken(
             new Range(
-                ByteOffset::fromInt($token->getFullStartPosition()),
+                ByteOffset::fromInt($fullStart ?? $token->getFullStartPosition()),
                 ByteOffset::fromInt($token->getStartPosition()),
                 ByteOffset::fromInt($token->getEndPosition())
             )

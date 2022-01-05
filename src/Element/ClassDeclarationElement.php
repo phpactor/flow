@@ -3,18 +3,20 @@
 namespace Phpactor\Flow\Element;
 
 use Generator;
+use Microsoft\PhpParser\Node\ClassMembersNode;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
+use Phpactor\Flow\Token;
 
 class ClassDeclarationElement extends Element
 {
-    /**
-     * @param Element[] $members
-     */
     public function __construct(
         private Range $range,
         private DocblockElement $docblock,
-        private array $members
+        private ?Token $modifier,
+        private Token $classKeyword,
+        private Token $name,
+        private ClassMembersElement $members,
     )
     {
     }
@@ -24,7 +26,17 @@ class ClassDeclarationElement extends Element
      */
     public function children(): array
     {
-        return array_merge([$this->docblock], $this->members);
+        return array_filter([
+            $this->docblock,
+            $this->modifier,
+            $this->classKeyword,
+            $this->name,
+            $this->members,
+        ]);
+    }
+
+    public function members(): ClassMembersElement {
+        return $this->members;
     }
 
     public function range(): Range
