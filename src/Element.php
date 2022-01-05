@@ -3,7 +3,6 @@
 namespace Phpactor\Flow;
 
 use Generator;
-use Phpactor\Flow\Element\ClassDeclarationElement;
 use Phpactor\Flow\Type\InvalidType;
 use Phpactor\Flow\Util\DebugHelper;
 use RuntimeException;

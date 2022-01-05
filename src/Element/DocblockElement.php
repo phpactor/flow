@@ -7,7 +7,11 @@ use Phpactor\Flow\Range;
 
 class DocblockElement extends Element
 {
-    public function __construct(private Range $range, private array $children) {
+    /**
+     * @param Element[] $children
+     */
+    public function __construct(private Range $range, private array $children)
+    {
     }
 
     public function children(): array

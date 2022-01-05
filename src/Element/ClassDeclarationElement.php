@@ -2,8 +2,6 @@
 
 namespace Phpactor\Flow\Element;
 
-use Generator;
-use Microsoft\PhpParser\Node\ClassMembersNode;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Token;
@@ -17,8 +15,7 @@ class ClassDeclarationElement extends Element
         private Token $classKeyword,
         private Token $name,
         private ClassMembersElement $members,
-    )
-    {
+    ) {
     }
 
     /**
@@ -35,7 +32,8 @@ class ClassDeclarationElement extends Element
         ]);
     }
 
-    public function members(): ClassMembersElement {
+    public function members(): ClassMembersElement
+    {
         return $this->members;
     }
 

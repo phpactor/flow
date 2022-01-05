@@ -4,7 +4,6 @@ namespace Phpactor\Flow\Element;
 
 use Phpactor\Flow\Element;
 use Phpactor\Flow\Range;
-use Phpactor\Flow\Type;
 
 class ClassMembersElement extends Element
 {
@@ -28,4 +27,3 @@ class ClassMembersElement extends Element
         return $this->range;
     }
 }
-

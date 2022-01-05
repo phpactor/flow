@@ -21,7 +21,7 @@ final class MethodCollection extends MemberCollection
                 return new ReflectionMethod($e->name(), $e->type());
             },
             iterator_to_array(
-                (function ()use ($element): Generator {
+                (function () use ($element): Generator {
                     foreach ($element->docblock()->childrenByClass(MethodDeclarationElement::class) as $m) {
                         yield $m;
                     }
