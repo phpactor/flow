@@ -7,7 +7,6 @@ use Microsoft\PhpParser\Node\DelimitedList\QualifiedNameList;
 use Microsoft\PhpParser\Node\QualifiedName;
 use Microsoft\PhpParser\Token;
 use Phpactor\Flow\Range;
-use Phpactor\Flow\Token as PhpactorToken;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
@@ -27,21 +26,6 @@ class NodeBridge
             ByteOffset::fromInt($node->getFullStartPosition()),
             ByteOffset::fromInt($node->getStartPosition()),
             ByteOffset::fromInt($node->getEndPosition())
-        );
-    }
-
-    public static function token(?Token $token, int $fullStart = null): ?PhpactorToken
-    {
-        if (null === $token) {
-            return null;
-        }
-
-        return new PhpactorToken(
-            new Range(
-                ByteOffset::fromInt($fullStart ?? $token->getFullStartPosition()),
-                ByteOffset::fromInt($token->getStartPosition()),
-                ByteOffset::fromInt($token->getEndPosition())
-            )
         );
     }
 

@@ -2,7 +2,6 @@
 
 namespace Phpactor\Flow;
 
-use Microsoft\PhpParser\Node\ClassMembersNode;
 use Microsoft\PhpParser\Node\Expression\ArgumentExpression;
 use Microsoft\PhpParser\Node\Expression\AssignmentExpression;
 use Microsoft\PhpParser\Node\Expression\BinaryExpression;
@@ -16,9 +15,6 @@ use Microsoft\PhpParser\Node\NumericLiteral;
 use Microsoft\PhpParser\Node\ReservedWord;
 use Microsoft\PhpParser\Node\SourceFileNode;
 use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
-use Microsoft\PhpParser\Node\Statement\ExpressionStatement;
-use Microsoft\PhpParser\Node\Statement\InlineHtml;
-use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
 use Microsoft\PhpParser\Node\Statement\ReturnStatement;
 use Microsoft\PhpParser\Node\StringLiteral;
 use Microsoft\PhpParser\Parser;
@@ -30,17 +26,13 @@ use Phpactor\Flow\Resolver\AssignmentExpressionResolver;
 use Phpactor\Flow\Resolver\BinaryExpressionResolver;
 use Phpactor\Flow\Resolver\CallExpressionResolver;
 use Phpactor\Flow\Resolver\ClassDeclarationResolver;
-use Phpactor\Flow\Resolver\ClassMembersResolver;
-use Phpactor\Flow\Resolver\ExpressionStatementResolver;
-use Phpactor\Flow\Resolver\InlineHtmlResolver;
 use Phpactor\Flow\Resolver\MethodDeclarationResolver;
-use Phpactor\Flow\Resolver\NamespaceDefinitionResolver;
 use Phpactor\Flow\Resolver\NumericLiteralResolver;
 use Phpactor\Flow\Resolver\ObjectCreationExpressionResolver;
 use Phpactor\Flow\Resolver\ParenthesizedExpressionResolver;
 use Phpactor\Flow\Resolver\ReservedWordResolver;
 use Phpactor\Flow\Resolver\ReturnStatementResolver;
-use Phpactor\Flow\Resolver\SourceCodeResolver;
+use Phpactor\Flow\Resolver\SourceFileNodeResolver;
 use Phpactor\Flow\Resolver\StringLiteralResolver;
 use Phpactor\Flow\Resolver\UnaryOpResolver;
 use Phpactor\Flow\Resolver\VariableResolver;
@@ -83,13 +75,11 @@ final class FlowBuilder
             $this->createNodeLocator(),
             $this->createDocblockFactory(),
             [
-                SourceFileNode::class => new SourceCodeResolver(),
+                SourceFileNode::class => new SourceFileNodeResolver(),
                 ReturnStatement::class => new ReturnStatementResolver(),
                 BinaryExpression::class => new BinaryExpressionResolver(),
                 ReservedWord::class => new ReservedWordResolver(),
                 UnaryOpExpression::class => new UnaryOpResolver(),
-                InlineHtml::class => new InlineHtmlResolver(),
-                ExpressionStatement::class => new ExpressionStatementResolver(),
                 AssignmentExpression::class => new AssignmentExpressionResolver(),
                 Variable::class => new VariableResolver(),
                 NumericLiteral::class => new NumericLiteralResolver(),
@@ -103,10 +93,9 @@ final class FlowBuilder
                 ),
                 StringLiteral::class => new StringLiteralResolver(),
                 ArgumentExpression::class => new ArgumentExpressionResolver(),
-                NamespaceDefinition::class => new NamespaceDefinitionResolver(),
                 MethodDeclaration::class => new MethodDeclarationResolver(),
-                ClassMembersNode::class => new ClassMembersResolver(),
-            ]
+            ],
+            new NodeTable()
         );
     }
 

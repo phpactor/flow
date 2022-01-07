@@ -2,12 +2,10 @@
 
 namespace Phpactor\Flow;
 
-use Phpactor\Flow\Element\VariableElement;
-
 final class Frame
 {
     /**
-     * @var array<string,VariableElement>
+     * @var array<string,NodeInfo>
      */
     private $vars = [];
 
@@ -16,12 +14,12 @@ final class Frame
         return new self();
     }
 
-    public function setVariable(VariableElement $variable): void
+    public function setVariable(string $name, NodeInfo $info): void
     {
-        $this->vars[$variable->name()] = $variable;
+        $this->vars[$name] = $info;
     }
 
-    public function getVariable(string $name): ?VariableElement
+    public function getVariable(string $name): ?NodeInfo
     {
         if (!isset($this->vars[$name])) {
             return null;

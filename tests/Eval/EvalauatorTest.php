@@ -4,7 +4,6 @@ namespace Phpactor\Flow\Tests\Eval;
 
 use Generator;
 use PHPUnit\Framework\TestCase;
-use Phpactor\Flow\Element\ReturnStatementElement;
 use Phpactor\Flow\FlowBuilder;
 use Phpactor\Flow\Type\BooleanType;
 use Symfony\Component\Process\Process;
@@ -22,9 +21,7 @@ class EvalauatorTest extends TestCase
 
         self::assertEquals(
             new BooleanType(true),
-            $interpreted->lastChildByClass(
-                ReturnStatementElement::class
-            )?->expression()->type(),
+            $interpreted->type(),
             'Analysed code returns true',
         );
 
@@ -32,12 +29,6 @@ class EvalauatorTest extends TestCase
             PHP_BINARY,
         ], null, null, $code);
         $process->mustRun();
-
-        self::assertEquals(
-            $code,
-            $interpreted->toString($code),
-            'Converts back to original source'
-        );
     }
 
     /**
@@ -46,7 +37,7 @@ class EvalauatorTest extends TestCase
     public function provideEval(): Generator
     {
         foreach ((array)glob(__DIR__ . '/*/*.phpt') as $path) {
-            yield dirname((string)$path) .'/'. basename((string)$path) => [
+            yield basename(dirname((string)$path)) .'/'. basename((string)$path) => [
                 $path,
             ];
         }

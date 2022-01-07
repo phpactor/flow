@@ -3,14 +3,10 @@
 namespace Phpactor\Flow;
 
 use Microsoft\PhpParser\Node;
+use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
 use Phpactor\DocblockParser\Ast\Docblock;
-use Phpactor\Flow\Element\ClassDeclarationElement;
-use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Reflection\ReflectionClass;
-use Phpactor\Flow\Util\DebugHelper;
-use Phpactor\Flow\Util\NodeBridge;
 use Phpactor\Name\FullyQualifiedName;
-use RuntimeException;
 
 class Interpreter
 {
@@ -20,65 +16,42 @@ class Interpreter
     public function __construct(
         private AstLocator $locator,
         private DocblockFactory $docblockFactory,
-        private readonly array $resolvers = []
+        private readonly array $resolvers,
+        private NodeTable $table
     ) {
     }
 
-    public function interpret(Frame $frame, Node $node): Element
+    public function interpretNoFrame(Node $node): NodeInfo
     {
-        if (isset($this->resolvers[$node::class])) {
-            return $this->resolvers[$node::class]->resolve($this, $frame, $node);
-        }
-
-        if (DebugHelper::isDebug()) {
-            throw new RuntimeException(sprintf(
-                'Do not know how to handle node of type "%s"',
-                get_class($node)
-            ));
-        }
-
-        return new UnmanagedElement(
-            get_class($node),
-            NodeBridge::rangeFromNode($node),
-            array_map(function (Node $node) use ($frame) {
-                return $this->interpret($frame, $node);
-            }, iterator_to_array($node->getChildNodes()))
-        );
+        return $this->interpret(new Frame(), $node);
     }
 
-    /**
-     * @template TClass of Element
-     * @param class-string<TClass> $class
-     * @return TClass
-     */
-    public function interpretClass(Frame $frame, Node $node, string $class): Element
+    public function interpret(Frame $frame, Node $node): NodeInfo
     {
-        $element = $this->interpret($frame, $node);
-        if (!$element instanceof $class) {
-            throw new RuntimeException(sprintf(
-                'Expected element of type "%s" but got "%s"',
-                $class,
-                get_class($element)
-            ));
+        if (isset($this->resolvers[$node::class])) {
+            $info = $this->resolvers[$node::class]->resolve($this, $frame, $node);
+            $this->table->setInfo($node, $info);
+            return $info;
         }
 
-        return $element;
+        foreach ($node->getChildNodes() as $child) {
+            $this->interpret($frame, $child);
+        }
+
+        return NodeInfo::fromNode($node);
     }
 
     public function reflectClass(FullyQualifiedName $fullyQualifiedName, Types $arguments): ?ReflectionClass
     {
         $node = $this->locator->locate($fullyQualifiedName, SourceLocator::TYPE_CLASS);
 
-        if (null === $node) {
+        if (!$node instanceof ClassDeclaration) {
             return null;
         }
 
         return new ReflectionClass(
-            $this->interpretClass(
-                new Frame(),
-                $node,
-                ClassDeclarationElement::class
-            ),
+            $this,
+            $node,
             $arguments
         );
     }
