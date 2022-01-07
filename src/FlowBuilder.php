@@ -101,6 +101,8 @@ final class FlowBuilder
                     ])
                 ),
                 StringLiteral::class => new StringLiteralResolver(),
+                ArgumentExpression::class => new ArgumentExpressionResolver(),
+                MethodDeclaration::class => new MethodDeclarationResolver(),
             ],
             new NodeTable()
         );
