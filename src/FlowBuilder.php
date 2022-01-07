@@ -41,6 +41,7 @@ use Phpactor\Flow\Resolver\ParenthesizedExpressionResolver;
 use Phpactor\Flow\Resolver\ReservedWordResolver;
 use Phpactor\Flow\Resolver\ReturnStatementResolver;
 use Phpactor\Flow\Resolver\SourceCodeResolver;
+use Phpactor\Flow\Resolver\SourceFileNodeResolver;
 use Phpactor\Flow\Resolver\StringLiteralResolver;
 use Phpactor\Flow\Resolver\UnaryOpResolver;
 use Phpactor\Flow\Resolver\VariableResolver;
@@ -83,6 +84,7 @@ final class FlowBuilder
             $this->createNodeLocator(),
             $this->createDocblockFactory(),
             [
+                SourceFileNode::class => new SourceFileNodeResolver(),
                 ReturnStatement::class => new ReturnStatementResolver(),
                 BinaryExpression::class => new BinaryExpressionResolver(),
                 ReservedWord::class => new ReservedWordResolver(),

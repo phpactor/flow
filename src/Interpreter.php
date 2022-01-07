@@ -39,13 +39,6 @@ class Interpreter
             return $info;
         }
 
-        if (DebugHelper::isDebug()) {
-            throw new RuntimeException(sprintf(
-                'Do not know how to handle node of type "%s"',
-                get_class($node)
-            ));
-        }
-
         return NodeInfo::fromNode($node);
     }
 

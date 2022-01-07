@@ -22,9 +22,7 @@ class EvalauatorTest extends TestCase
 
         self::assertEquals(
             new BooleanType(true),
-            $interpreted->lastChildByClass(
-                ReturnStatementElement::class
-            )?->expression()->type(),
+            $interpreted->type(),
             'Analysed code returns true',
         );
 
@@ -32,12 +30,6 @@ class EvalauatorTest extends TestCase
             PHP_BINARY,
         ], null, null, $code);
         $process->mustRun();
-
-        self::assertEquals(
-            $code,
-            $interpreted->toString($code),
-            'Converts back to original source'
-        );
     }
 
     /**
