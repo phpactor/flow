@@ -14,7 +14,7 @@ use Phpactor\Flow\Util\NodeBridge;
 
 final class ReturnStatementResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): NodeInfo
     {
         assert($node instanceof ReturnStatement);
         return NodeInfo::fromNode(

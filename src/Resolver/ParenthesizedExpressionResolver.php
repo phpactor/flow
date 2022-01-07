@@ -14,7 +14,7 @@ use Phpactor\Flow\Util\NodeBridge;
 
 class ParenthesizedExpressionResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): NodeInfo
     {
         assert($node instanceof ParenthesizedExpression);
 

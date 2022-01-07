@@ -30,21 +30,6 @@ class NodeBridge
         );
     }
 
-    public static function token(?Token $token, int $fullStart = null): ?PhpactorToken
-    {
-        if (null === $token) {
-            return null;
-        }
-
-        return new PhpactorToken(
-            new Range(
-                ByteOffset::fromInt($fullStart ?? $token->getFullStartPosition()),
-                ByteOffset::fromInt($token->getStartPosition()),
-                ByteOffset::fromInt($token->getEndPosition())
-            )
-        );
-    }
-
     public static function type(Node $node, null|QualifiedName|QualifiedNameList|Token $parserType = null): Type
     {
         if ($parserType instanceof QualifiedName) {

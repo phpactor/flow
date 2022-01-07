@@ -22,7 +22,7 @@ use Phpactor\Name\FullyQualifiedName;
 
 class ObjectCreationExpressionResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): NodeInfo
     {
         assert($node instanceof ObjectCreationExpression);
         return NodeInfo::fromNode($node, $this->resolveType($frame, $node->classTypeDesignator));

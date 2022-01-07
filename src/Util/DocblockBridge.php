@@ -46,22 +46,4 @@ final class DocblockBridge
             ByteOffset::fromInt($node->getFullStartPosition() + $element->end())
         );
     }
-
-    public static function element(Node $node, int $fullStart, Element $element): PhpactorElement
-    {
-        $range = DocblockBridge::range($node, $element, $fullStart);
-        if ($element instanceof MethodTag) {
-            return new MethodDeclarationElement(
-                $range,
-                $element->name->toString(),
-                self::type($node, $element->type)
-            );
-        }
-
-        return new UnmanagedElement(
-            get_class($element),
-            $range,
-            []
-        );
-    }
 }

@@ -18,4 +18,9 @@ final class NodeTable
     {
         $this->storage = new SplObjectStorage();
     }
+
+    public function setInfo(Node $node, NodeInfo $info): void
+    {
+        $this->storage->offsetSet($node, $info);
+    }
 }

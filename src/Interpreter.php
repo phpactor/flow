@@ -3,6 +3,7 @@
 namespace Phpactor\Flow;
 
 use Microsoft\PhpParser\Node;
+use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
 use Phpactor\DocblockParser\Ast\Docblock;
 use Phpactor\Flow\Element\ClassDeclarationElement;
 use Phpactor\Flow\Element\UnmanagedElement;
@@ -20,14 +21,22 @@ class Interpreter
     public function __construct(
         private AstLocator $locator,
         private DocblockFactory $docblockFactory,
-        private readonly array $resolvers = []
+        private readonly array $resolvers,
+        private NodeTable $table
     ) {
+    }
+
+    public function interpretNoFrame(Node $node): NodeInfo
+    {
+        return $this->interpret(new Frame(), $node);
     }
 
     public function interpret(Frame $frame, Node $node): NodeInfo
     {
         if (isset($this->resolvers[$node::class])) {
-            return $this->resolvers[$node::class]->resolve($this, $frame, $node);
+            $info = $this->resolvers[$node::class]->resolve($this, $frame, $node);
+            $this->table->setInfo($node, $info);
+            return $info;
         }
 
         if (DebugHelper::isDebug()) {
@@ -44,16 +53,13 @@ class Interpreter
     {
         $node = $this->locator->locate($fullyQualifiedName, SourceLocator::TYPE_CLASS);
 
-        if (null === $node) {
+        if (!$node instanceof ClassDeclaration) {
             return null;
         }
 
         return new ReflectionClass(
-            $this->interpretClass(
-                new Frame(),
-                $node,
-                ClassDeclarationElement::class
-            ),
+            $this,
+            $node,
             $arguments
         );
     }

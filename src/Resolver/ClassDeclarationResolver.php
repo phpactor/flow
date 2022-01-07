@@ -20,7 +20,7 @@ use Phpactor\TextDocument\ByteOffset;
 
 class ClassDeclarationResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): NodeInfo
     {
         return NodeInfo::fromNode($node, NodeBridge::type($node));
     }

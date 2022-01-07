@@ -10,7 +10,7 @@ final class Flow
     {
     }
 
-    public function represent(string $sourceCode): Element
+    public function represent(string $sourceCode): NodeInfo
     {
         $node = $this->parser->parseSourceFile($sourceCode);
         return $this->interpreter->interpret(new Frame(), $node);

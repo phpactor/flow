@@ -4,6 +4,7 @@ namespace Phpactor\Flow\Resolver;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\Expression\AssignmentExpression;
+use Microsoft\PhpParser\Node\Expression\Variable;
 use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\AssignmentExpressionElement;
@@ -22,9 +23,9 @@ class AssignmentExpressionResolver implements ElementResolver
         $left = $interpreter->interpret($frame, $node->leftOperand);
         $right = $interpreter->interpret($frame, $node->rightOperand);
 
-        if ($left instanceof VariableElement) {
-            $left = $left->withType($right->type());
-            $frame->setVariable($left);
+        $assignee = $node->leftOperand;
+        if ($assignee instanceof Variable) {
+            $frame->setVariable($assignee->getName(), $left);
         }
 
         return NodeInfo::fromNode($node);

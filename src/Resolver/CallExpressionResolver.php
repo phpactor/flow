@@ -35,7 +35,7 @@ class CallExpressionResolver implements ElementResolver
 
         $arguments = new Types(
             array_map(
-                fn (Element $e) => $e->type(),
+                fn (NodeInfo $i) => $i->type(),
                 array_map(
                     fn (Node $expr) => $interpreter->interpret($frame, $expr),
                     array_filter(
@@ -46,8 +46,10 @@ class CallExpressionResolver implements ElementResolver
             )
         );
 
-        $type = $this->resolveType($frame, $interpreter, $node->callableExpression, $arguments);
-        return NodeInfo::fromNode($node, $type);
+        return NodeInfo::fromNode(
+            $node,
+            $this->resolveType($frame, $interpreter, $node->callableExpression, $arguments)
+        );
     }
 
     private function resolveType(

@@ -83,13 +83,10 @@ final class FlowBuilder
             $this->createNodeLocator(),
             $this->createDocblockFactory(),
             [
-                SourceFileNode::class => new SourceCodeResolver(),
                 ReturnStatement::class => new ReturnStatementResolver(),
                 BinaryExpression::class => new BinaryExpressionResolver(),
                 ReservedWord::class => new ReservedWordResolver(),
                 UnaryOpExpression::class => new UnaryOpResolver(),
-                InlineHtml::class => new InlineHtmlResolver(),
-                ExpressionStatement::class => new ExpressionStatementResolver(),
                 AssignmentExpression::class => new AssignmentExpressionResolver(),
                 Variable::class => new VariableResolver(),
                 NumericLiteral::class => new NumericLiteralResolver(),
@@ -102,10 +99,8 @@ final class FlowBuilder
                     ])
                 ),
                 StringLiteral::class => new StringLiteralResolver(),
-                NamespaceDefinition::class => new NamespaceDefinitionResolver(),
-                MethodDeclaration::class => new MethodDeclarationResolver(),
-                ClassMembersNode::class => new ClassMembersResolver(),
-            ]
+            ],
+            new NodeTable()
         );
     }
 
