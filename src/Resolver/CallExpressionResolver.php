@@ -15,6 +15,7 @@ use Phpactor\Flow\Element\CallExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\FunctionExecutor;
 use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\NodeInfo;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
@@ -28,7 +29,7 @@ class CallExpressionResolver implements ElementResolver
     {
     }
 
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): NodeInfo
     {
         assert($node instanceof CallExpression);
 
@@ -46,9 +47,7 @@ class CallExpressionResolver implements ElementResolver
         );
 
         $type = $this->resolveType($frame, $interpreter, $node->callableExpression, $arguments);
-        $foo = '';
-
-        return new CallExpressionElement(NodeBridge::rangeFromNode($node), $type);
+        return NodeInfo::fromNode($node, $type);
     }
 
     private function resolveType(

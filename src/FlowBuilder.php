@@ -102,7 +102,6 @@ final class FlowBuilder
                     ])
                 ),
                 StringLiteral::class => new StringLiteralResolver(),
-                ArgumentExpression::class => new ArgumentExpressionResolver(),
                 NamespaceDefinition::class => new NamespaceDefinitionResolver(),
                 MethodDeclaration::class => new MethodDeclarationResolver(),
                 ClassMembersNode::class => new ClassMembersResolver(),

@@ -12,6 +12,7 @@ use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\ObjectCreationExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\NodeInfo;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\MixedType;
@@ -24,11 +25,7 @@ class ObjectCreationExpressionResolver implements ElementResolver
     public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
     {
         assert($node instanceof ObjectCreationExpression);
-
-        return new ObjectCreationExpressionElement(
-            NodeBridge::rangeFromNode($node),
-            $this->resolveType($frame, $node->classTypeDesignator)
-        );
+        return NodeInfo::fromNode($node, $this->resolveType($frame, $node->classTypeDesignator));
     }
 
     private function resolveType(Frame $frame, QualifiedName|Variable|Token $node): Type

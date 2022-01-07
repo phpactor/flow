@@ -9,6 +9,7 @@ use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\ParenthesizedExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\NodeInfo;
 use Phpactor\Flow\Util\NodeBridge;
 
 class ParenthesizedExpressionResolver implements ElementResolver
@@ -17,12 +18,8 @@ class ParenthesizedExpressionResolver implements ElementResolver
     {
         assert($node instanceof ParenthesizedExpression);
 
-        $expression = $interpreter->interpret($frame, $node->expression);
+        $info = $interpreter->interpret($frame, $node->expression);
 
-        return new ParenthesizedExpressionElement(
-            NodeBridge::rangeFromNode($node),
-            $expression,
-            $expression->type(),
-        );
+        return NodeInfo::fromNode($node, $info->type());
     }
 }

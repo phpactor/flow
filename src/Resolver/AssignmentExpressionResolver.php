@@ -10,11 +10,12 @@ use Phpactor\Flow\Element\AssignmentExpressionElement;
 use Phpactor\Flow\Element\VariableElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\NodeInfo;
 use Phpactor\Flow\Util\NodeBridge;
 
 class AssignmentExpressionResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): NodeInfo
     {
         assert($node instanceof AssignmentExpression);
 
@@ -26,8 +27,6 @@ class AssignmentExpressionResolver implements ElementResolver
             $frame->setVariable($left);
         }
 
-        return new AssignmentExpressionElement(
-            NodeBridge::rangeFromNode($node)
-        );
+        return NodeInfo::fromNode($node);
     }
 }

@@ -12,7 +12,7 @@ use Phpactor\Flow\Util\NodeBridge;
 use Phpactor\Name\FullyQualifiedName;
 use RuntimeException;
 
-class Interpreter
+class InterpreterContext
 {
     /**
      * @param ElementResolver[] $resolvers
@@ -20,14 +20,16 @@ class Interpreter
     public function __construct(
         private AstLocator $locator,
         private DocblockFactory $docblockFactory,
-        private readonly array $resolvers = []
+        private readonly array $resolvers = [],
+        private NodeTable $table
     ) {
     }
 
-    public function interpret(Frame $frame, Node $node): NodeInfo
+    public function interpret(Frame $frame, Node $node): Element
     {
         if (isset($this->resolvers[$node::class])) {
-            return $this->resolvers[$node::class]->resolve($this, $frame, $node);
+            $info = $this->resolvers[$node::class]->resolve($this, $frame, $node);
+            $this->table->setInfo($node, $info);
         }
 
         if (DebugHelper::isDebug()) {
@@ -37,7 +39,32 @@ class Interpreter
             ));
         }
 
-        return NodeInfo::fromNode($node);
+        return new UnmanagedElement(
+            get_class($node),
+            NodeBridge::rangeFromNode($node),
+            array_map(function (Node $node) use ($frame) {
+                return $this->interpret($frame, $node);
+            }, iterator_to_array($node->getChildNodes()))
+        );
+    }
+
+    /**
+     * @template TClass of Element
+     * @param class-string<TClass> $class
+     * @return TClass
+     */
+    public function interpretClass(Frame $frame, Node $node, string $class): Element
+    {
+        $element = $this->interpret($frame, $node);
+        if (!$element instanceof $class) {
+            throw new RuntimeException(sprintf(
+                'Expected element of type "%s" but got "%s"',
+                $class,
+                get_class($element)
+            ));
+        }
+
+        return $element;
     }
 
     public function reflectClass(FullyQualifiedName $fullyQualifiedName, Types $arguments): ?ReflectionClass

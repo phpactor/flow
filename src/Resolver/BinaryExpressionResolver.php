@@ -9,6 +9,7 @@ use Phpactor\Flow\ElementResolver;
 use Phpactor\Flow\Element\BinaryExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
+use Phpactor\Flow\NodeInfo;
 use Phpactor\Flow\Type\InvalidType;
 use Phpactor\Flow\Util\DebugHelper;
 use Phpactor\Flow\Util\NodeBridge;
@@ -16,7 +17,7 @@ use RuntimeException;
 
 class BinaryExpressionResolver implements ElementResolver
 {
-    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): Element
+    public function resolve(Interpreter $interpreter, Frame $frame, Node $node): NodeInfo
     {
         assert($node instanceof BinaryExpression);
         $left = $interpreter->interpret($frame, $node->leftOperand);
@@ -40,12 +41,6 @@ class BinaryExpressionResolver implements ElementResolver
             )) : new InvalidType(sprintf('Unknown operator "%s"', $condition))
         };
 
-        return new BinaryExpressionElement(
-            NodeBridge::rangeFromNode($node),
-            $left,
-            NodeBridge::token($node->operator),
-            $right,
-            $type,
-        );
+        return NodeInfo::fromNode($node, $type);
     }
 }
