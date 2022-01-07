@@ -4,15 +4,12 @@ namespace Phpactor\Flow\Resolver;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\Expression\BinaryExpression;
-use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
-use Phpactor\Flow\Element\BinaryExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\NodeInfo;
 use Phpactor\Flow\Type\InvalidType;
 use Phpactor\Flow\Util\DebugHelper;
-use Phpactor\Flow\Util\NodeBridge;
 use RuntimeException;
 
 class BinaryExpressionResolver implements ElementResolver

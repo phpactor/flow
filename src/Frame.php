@@ -2,8 +2,6 @@
 
 namespace Phpactor\Flow;
 
-use Phpactor\Flow\Element\VariableElement;
-
 final class Frame
 {
     /**

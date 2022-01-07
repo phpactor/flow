@@ -4,14 +4,11 @@ namespace Phpactor\Flow\Resolver;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\Expression\UnaryOpExpression;
-use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
-use Phpactor\Flow\Element\UnaryOpElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\NodeInfo;
 use Phpactor\Flow\Type\BooleanType;
-use Phpactor\Flow\Util\NodeBridge;
 
 class UnaryOpResolver implements ElementResolver
 {

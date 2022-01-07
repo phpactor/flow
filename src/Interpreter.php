@@ -5,13 +5,8 @@ namespace Phpactor\Flow;
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
 use Phpactor\DocblockParser\Ast\Docblock;
-use Phpactor\Flow\Element\ClassDeclarationElement;
-use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Reflection\ReflectionClass;
-use Phpactor\Flow\Util\DebugHelper;
-use Phpactor\Flow\Util\NodeBridge;
 use Phpactor\Name\FullyQualifiedName;
-use RuntimeException;
 
 class Interpreter
 {

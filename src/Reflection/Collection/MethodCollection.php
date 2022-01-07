@@ -6,8 +6,6 @@ use Generator;
 use Microsoft\PhpParser\Node\MethodDeclaration;
 use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
 use Phpactor\DocblockParser\Ast\Tag\MethodTag;
-use Phpactor\Flow\Element\ClassDeclarationElement;
-use Phpactor\Flow\Element\MethodDeclarationElement;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Reflection\ReflectionMethod;
 use Phpactor\Flow\Types;

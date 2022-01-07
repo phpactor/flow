@@ -3,7 +3,6 @@
 namespace Phpactor\Flow;
 
 use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Node\Expression\ArgumentExpression;
 use Phpactor\DocblockParser\Ast\Node as DocblockNode;
 use Phpactor\Flow\Type\InvalidType;
 

@@ -4,13 +4,9 @@ namespace Phpactor\Flow\Util;
 
 use Microsoft\PhpParser\Node;
 use Phpactor\DocblockParser\Ast\Element;
-use Phpactor\DocblockParser\Ast\Tag\MethodTag;
 use Phpactor\DocblockParser\Ast\TypeNode;
 use Phpactor\DocblockParser\Ast\Type\ClassNode;
 use Phpactor\DocblockParser\Ast\Type\UnionNode;
-use Phpactor\Flow\Element as PhpactorElement;
-use Phpactor\Flow\Element\MethodDeclarationElement;
-use Phpactor\Flow\Element\UnmanagedElement;
 use Phpactor\Flow\Range;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;

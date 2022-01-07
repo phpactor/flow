@@ -4,13 +4,10 @@ namespace Phpactor\Flow\Resolver;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\Expression\ArgumentExpression;
-use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
-use Phpactor\Flow\Element\ArgumentExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\NodeInfo;
-use Phpactor\Flow\Util\NodeBridge;
 
 class ArgumentExpressionResolver implements ElementResolver
 {

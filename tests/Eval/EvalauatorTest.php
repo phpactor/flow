@@ -4,7 +4,6 @@ namespace Phpactor\Flow\Tests\Eval;
 
 use Generator;
 use PHPUnit\Framework\TestCase;
-use Phpactor\Flow\Element\ReturnStatementElement;
 use Phpactor\Flow\FlowBuilder;
 use Phpactor\Flow\Type\BooleanType;
 use Symfony\Component\Process\Process;

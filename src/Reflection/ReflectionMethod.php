@@ -4,8 +4,6 @@ namespace Phpactor\Flow\Reflection;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\MethodDeclaration;
-use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
-use Phpactor\DocblockParser\Ast\Element;
 use Phpactor\DocblockParser\Ast\Tag\MethodTag;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Type;

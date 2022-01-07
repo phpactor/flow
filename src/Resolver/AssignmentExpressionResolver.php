@@ -5,14 +5,10 @@ namespace Phpactor\Flow\Resolver;
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\Expression\AssignmentExpression;
 use Microsoft\PhpParser\Node\Expression\Variable;
-use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
-use Phpactor\Flow\Element\AssignmentExpressionElement;
-use Phpactor\Flow\Element\VariableElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\NodeInfo;
-use Phpactor\Flow\Util\NodeBridge;
 
 class AssignmentExpressionResolver implements ElementResolver
 {

@@ -7,9 +7,7 @@ use Microsoft\PhpParser\Node\Expression\ObjectCreationExpression;
 use Microsoft\PhpParser\Node\Expression\Variable;
 use Microsoft\PhpParser\Node\QualifiedName;
 use Microsoft\PhpParser\Token;
-use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
-use Phpactor\Flow\Element\ObjectCreationExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\NodeInfo;
@@ -17,7 +15,6 @@ use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\MixedType;
 use Phpactor\Flow\Type\UnresolvedType;
-use Phpactor\Flow\Util\NodeBridge;
 use Phpactor\Name\FullyQualifiedName;
 
 class ObjectCreationExpressionResolver implements ElementResolver

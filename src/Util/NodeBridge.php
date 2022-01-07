@@ -7,7 +7,6 @@ use Microsoft\PhpParser\Node\DelimitedList\QualifiedNameList;
 use Microsoft\PhpParser\Node\QualifiedName;
 use Microsoft\PhpParser\Token;
 use Phpactor\Flow\Range;
-use Phpactor\Flow\Token as PhpactorToken;
 use Phpactor\Flow\Type;
 use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;

@@ -9,9 +9,7 @@ use Microsoft\PhpParser\Node\Expression\CallExpression;
 use Microsoft\PhpParser\Node\Expression\MemberAccessExpression;
 use Microsoft\PhpParser\Node\QualifiedName;
 use Microsoft\PhpParser\Token;
-use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
-use Phpactor\Flow\Element\CallExpressionElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\FunctionExecutor;
 use Phpactor\Flow\Interpreter;
@@ -21,7 +19,6 @@ use Phpactor\Flow\Type\ClassType;
 use Phpactor\Flow\Type\InvalidType;
 use Phpactor\Flow\Type\UnresolvedType;
 use Phpactor\Flow\Types;
-use Phpactor\Flow\Util\NodeBridge;
 
 class CallExpressionResolver implements ElementResolver
 {

@@ -3,7 +3,6 @@
 namespace Phpactor\Flow\Reflection;
 
 use Microsoft\PhpParser\Node\Statement\ClassDeclaration;
-use Phpactor\Flow\Element\ClassDeclarationElement;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\Reflection\Collection\MethodCollection;
 use Phpactor\Flow\Types;

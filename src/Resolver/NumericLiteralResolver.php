@@ -4,15 +4,12 @@ namespace Phpactor\Flow\Resolver;
 
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\NumericLiteral;
-use Phpactor\Flow\Element;
 use Phpactor\Flow\ElementResolver;
-use Phpactor\Flow\Element\ScalarElement;
 use Phpactor\Flow\Frame;
 use Phpactor\Flow\Interpreter;
 use Phpactor\Flow\NodeInfo;
 use Phpactor\Flow\Type\FloatType;
 use Phpactor\Flow\Type\IntegerType;
-use Phpactor\Flow\Util\NodeBridge;
 
 class NumericLiteralResolver implements ElementResolver
 {
