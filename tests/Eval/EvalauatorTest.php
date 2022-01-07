@@ -38,7 +38,7 @@ class EvalauatorTest extends TestCase
     public function provideEval(): Generator
     {
         foreach ((array)glob(__DIR__ . '/*/*.phpt') as $path) {
-            yield dirname((string)$path) .'/'. basename((string)$path) => [
+            yield basename(dirname((string)$path)) .'/'. basename((string)$path) => [
                 $path,
             ];
         }

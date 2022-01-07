@@ -23,7 +23,7 @@ class VariableResolver implements ElementResolver
         assert($node instanceof Variable);
         $name = self::UNKNOWN_VARNAME;
         if ($node->name instanceof Token) {
-            $name = (string)$node->name->getText($node->getFileContents());
+            $name = $node->getName();
         }
 
         return NodeInfo::fromNode($node, $frame->getVariable($name)?->type() ?? new MixedType());

@@ -25,7 +25,7 @@ class AssignmentExpressionResolver implements ElementResolver
 
         $assignee = $node->leftOperand;
         if ($assignee instanceof Variable) {
-            $frame->setVariable($assignee->getName(), $left);
+            $frame->setVariable($assignee->getName(), $right);
         }
 
         return NodeInfo::fromNode($node);

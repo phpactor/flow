@@ -39,6 +39,10 @@ class Interpreter
             return $info;
         }
 
+        foreach ($node->getChildNodes() as $child) {
+            $this->interpret($frame, $child);
+        }
+
         return NodeInfo::fromNode($node);
     }
 
